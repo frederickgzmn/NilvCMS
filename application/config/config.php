@@ -15,7 +15,7 @@
 |
 */
 //$config['base_url']	= 'http://10.12.0.15/dev/codeigniter/';
-$config['base_url']    = 'http://localhost/NilvCMS/nilvcms/nilvcms/';
+$config['base_url']    = 'http://localhost/NilvCMS/';
 
 
 

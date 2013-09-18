@@ -140,7 +140,9 @@ class Vistas extends CI_Controller {
 		$data["custom_js"] = "config";
 		if(isset($_SESSION["error_config"]))
 			$data["error_config"] = $_SESSION["error_config"];
-		
+		else
+			$data["error_config"] = "";
+			
 		$resultado = $this->Param_model->Nilv_select_settings();
 		
 		$n=0;

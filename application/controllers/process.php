@@ -32,7 +32,7 @@ class Process extends CI_Controller {
 		redirect("vistas/config");
 	}
 	
-	public function modific_usuario($nombre,$apellido,$email,$usuario=""){
+	public function Nilv_modific_usuario($nombre,$apellido,$email,$usuario=""){
 		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->modificar_usuario($nombre,$apellido,$email,$usuario);
 		if($resultado==true){
@@ -42,7 +42,7 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function insert_usuario($nombre,$apellido,$email,$usuario,$passwd){
+	public function Nilv_insert_usuario($nombre,$apellido,$email,$usuario,$passwd){
 		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->insertar_usuario($nombre,$apellido,$email,$usuario,$passwd);
 		if($resultado==true){
@@ -52,12 +52,12 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function login_usuario(){
+	public function Nilv_login_usuario(){
 		$usuario = $_POST['username'];
 		$passwd = $_POST['password'];
 		if($passwd!="" and $usuario!=""){
 			$this->load->model('userAdmin_model');
-			$resultado = $this->userAdmin_model->login($usuario,$passwd);
+			$resultado = $this->userAdmin_model->Nilv_login($usuario,$passwd);
 			
 			if($resultado=="true"){
 				$_SESSION["errores"] = "";
@@ -75,7 +75,7 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function logout_usuario(){
+	public function Nilv_logout_usuario(){
 		//Destruccion de session del usuario
 		$_SESSION["grupo"] = "";
 		$_SESSION["permisos"] = "";
@@ -84,7 +84,7 @@ class Process extends CI_Controller {
 		redirect("vistas");
 	}
 	
-	public function priv_crea_modif($accion,$nombre,$estado="",$codigo=""){
+	public function Nilv_priv_crea_modif($accion,$nombre,$estado="",$codigo=""){
 		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->modif_insert_priv($accion,$nombre,$estado,$codigo);
 		if($resultado=="insed"){
@@ -98,7 +98,7 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function cat_crea_modif($accion,$nombre,$estado="",$codigo=""){
+	public function Nilv_cat_crea_modif($accion,$nombre,$estado="",$codigo=""){
 		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->modif_insert_cat($accion,$nombre,$estado,$codigo);
 		if($resultado=="insed"){
@@ -112,7 +112,7 @@ class Process extends CI_Controller {
 		}
 	}
 	
-	public function rel_usuario_grupo($usuario,$grupo){
+	public function Nilv_rel_usuario_grupo($usuario,$grupo){
 		if(isset($usuario) and isset($grupo)){
 			$this->load->model('userAdmin_model');
 			$gruparray = explode("_",$grupo);
@@ -127,7 +127,7 @@ class Process extends CI_Controller {
 		}
 	}
 
-	public function rel_priv_grupo($grupo,$priv){
+	public function Nilv_rel_priv_grupo($grupo,$priv){
 		if(isset($priv) and isset($grupo)){
 			$this->load->model('userAdmin_model');
 			$gruparray = explode("_",$priv);

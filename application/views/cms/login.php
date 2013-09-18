@@ -14,7 +14,6 @@
 	<link href="{base_url}themes/cms/css/pages/signin.css" rel="stylesheet" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
-
 <body style="background: #333333;">
 <div style="margin-top: 60px;">
 	<div style="display: block; text-align: center;">
@@ -22,7 +21,7 @@
 	</div>
 	<div class="account-container">
 		<div class="content clearfix">
-			<form id=login-form method="post" accept-charset="utf-8" action="{base_url}index.php/process/login_usuario">
+			<form id=login-form method="post" accept-charset="utf-8" action="{base_url}/process/Nilv_login_usuario">
 				<div class="login-fields">				
 					<p>Sign in using your registered account:</p>
 					<div class="field">

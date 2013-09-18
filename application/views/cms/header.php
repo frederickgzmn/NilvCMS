@@ -51,7 +51,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<a class="brand" href="./">
+			<a class="brand" href="{base_url}vistas/tablero">
 				<img width="250" src="{base_url}themes/cms/img/logon100.png">			
 			</a>
 			<div class="nav-collapse">
@@ -79,10 +79,10 @@
 						</a>
 						
 						<ul class="dropdown-menu">
-							<li><a href="javascript:;">My Profile</a></li>
-							<li><a href="javascript:;">My Groups</a></li>
+							<li><a href="{base_url}vistas/perfil">My Profile</a></li>
+							<li><a href="{base_url}vistas/grupos">My Groups</a></li>
 							<li class="divider"></li>
-							<li><a href="javascript:;">Logout</a></li>
+							<li><a href="{base_url}process/Nilv_logout_usuario">Logout</a></li>
 						</ul>
 						
 					</li>
@@ -100,35 +100,35 @@
 		<div class="container">
 			<ul class="mainnav">
 				<li class="active">
-					<a href="{base_url}index.php/inicio/vista/tablero">
+					<a href="{base_url}vistas/tablero">
 						<i class="icon-home"></i>
 						<span>Tablero</span>
 					</a>	    				
 				</li>
 				
 				<li>
-					<a href="./faq.html">
+					<a href="{base_url}vistas/modulos">
 						<i class="icon-pushpin"></i>
-						<span>Contenido</span>
+						<span>Modulos</span>
 					</a>	    				
 				</li>
 				
 				<li>
-					<a href="./reports.html">
+					<a href="Reportes">
 						<i class="icon-bar-chart"></i>
 						<span>Reportes</span>
 					</a>    				
 				</li>
 				
 				<li>
-					<a href="./guidely.html">
+					<a href="{base_url}vistas/usuarios">
 						<i class="shortcut-icon icon-user"></i>
 						<span>Usuarios</span>
 					</a>
 				</li>
 
 				<li>					
-					<a href="./pricing.html" class="dropdown-toggle">
+					<a href="{base_url}vistas/tareas" class="dropdown-toggle">
 						<i class="icon-th-large"></i>
 						<span>Tareas</span>
 					</a>	  				
@@ -142,11 +142,10 @@
 					</a>	
 
 					<ul class="dropdown-menu">
-						<li><a href="./charts.html">General</a></li>
-						<li><a href="./account.html">Cuentas</a></li>
+						<li><a href="{base_url}vistas/config">General</a></li>
+						<li><a href="{base_url}vistas/perfil">Cuenta</a></li>
 						<li class="divider"></li>
-						<li><a href="./login.html">Login</a></li>
-						<li><a href="./signup.html">Signup</a></li>
+						<li><a href="{base_url}process/Nilv_logout_usuario">Signup</a></li>
 					</ul>    				
 				</li>
 			</ul>

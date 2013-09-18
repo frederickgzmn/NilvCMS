@@ -68,7 +68,7 @@ class Vistas extends CI_Controller {
 		//llamando modelo
 		$this->load->model('userAdmin_model');
 		$this->load->library('parser');
-		$vista_user = $this->userAdmin_model->vista_usuario($_SESSION["ID_usr"]);
+		$vista_user = $this->userAdmin_model->Nilv_vista_usuario($_SESSION["ID_usr"]);
 
 		//Datos a cargar a la vista
 		$n=0;
@@ -138,7 +138,9 @@ class Vistas extends CI_Controller {
 	
 	public function config(){
 		$data["custom_js"] = "config";
-		$data["error_config"] = $_SESSION["error_config"];
+		if(isset($_SESSION["error_config"]))
+			$data["error_config"] = $_SESSION["error_config"];
+		
 		$resultado = $this->Param_model->Nilv_select_settings();
 		
 		$n=0;
@@ -181,9 +183,7 @@ class Vistas extends CI_Controller {
 			$data["statregister"] = "selected='selected'";
 		}else{
 			$data["statregister"] = "";
-		}	
-		//print_r($resultado);
-
+		}
 		
 		$this->NilvController("config",$data);
 		$_SESSION["error_config"]="";

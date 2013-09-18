@@ -7,7 +7,7 @@
 		}
 		
 		//Metodo para seleccionar los user_admin
-		function vista_usuario($usuario=""){
+		function Nilv_vista_usuario($usuario=""){
 			if(isset($usuario) and $usuario!=""){
 				return $this->db->get_where('user_admin', array("id" => $usuario));
 			}else{
@@ -16,7 +16,7 @@
         }
 		
 		//Metodo para modificar los user_admin
-		function modificar_usuario($nombre,$apellido,$email,$usuario=""){
+		function Nilv_modificar_usuario($nombre,$apellido,$email,$usuario=""){
 			$consulta = $this->db->get_where('user_admin', array("id" => $usuario));
             print_r($consulta->num_rows());
 			if($consulta->num_rows() > 0){
@@ -36,7 +36,7 @@
 		}
 		
 		//Metodo para registrar los user_admin
-		function insertar_usuario($nombre,$apellido,$email,$usuario,$passwd){
+		function Nilv_insertar_usuario($nombre,$apellido,$email,$usuario,$passwd){
 			$consulta = $this->db->get_where('user_admin', array("id" => $usuario));
             
 			if($consulta->num_rows() > 0){
@@ -57,7 +57,7 @@
 		}
 		
 		//Metodo de login / conexion para los user_admin
-		function login($usuario,$passwd){
+		function Nilv_login($usuario,$passwd){
 			if((!isset($usuario) or $usuario=="") or (!isset($passwd) or $passwd=="" or $passwd==" ")){
 				$_SESSION["ID_usr"] = "";
 				return "false_error";
@@ -88,7 +88,7 @@
 		}
 		
 		//Metodo para crear o modificar grupos
-		function modif_insert_grupos($accion,$nombre,$estado="",$codigo=""){
+		function Nilv_modif_insert_grupos($accion,$nombre,$estado="",$codigo=""){
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
@@ -119,13 +119,13 @@
 		
 		
 		//Elimina los grupos
-		function delete_grupo($codigo){
+		function Nilv_delete_grupo($codigo){
 				$q = "update grupos set estado='I' where id='".$codigo."'";
 				$this->db->query($q);
 		}
 		
 		//MEtodo para crear o modificar privilegios
-		function modif_insert_priv($accion,$nombre,$estado="",$codigo=""){
+		function Nilv_modif_insert_priv($accion,$nombre,$estado="",$codigo=""){
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
@@ -153,13 +153,13 @@
 		}
 		
 		//Elimina los Privilegios
-		function delete_priv($codigo){
+		function Nilv_delete_priv($codigo){
 				$q = "update Privilegios set estado='I' where id='".$codigo."'";
 				$this->db->query($q);
 		}
 
 		//MEtodo para crear o modificar Categorias
-		function modif_insert_cat($accion,$nombre,$estado="",$codigo=""){
+		function Nilv_modif_insert_cat($accion,$nombre,$estado="",$codigo=""){
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
@@ -185,13 +185,13 @@
 		}
 		
 		//Elimina las categorias
-		function delete_cat($codigo){
+		function Nilv_delete_cat($codigo){
 				$q = "update categorias set estado='I' where id='".$codigo."'";
 				$this->db->query($q);
 		}
 		
 		//MEtodo para Agregar usuario a los grupos
-		function rel_usu_grup($usuario,$grupo){
+		function Nilv_rel_usu_grup($usuario,$grupo){
 			if(isset($usuario) and isset($grupo)){
 				$q = "delete from rel_usu_grup where  id_usuario='".$usuario."'";
 				$this->db->query($q);
@@ -212,7 +212,7 @@
 		}
 
 		//MEtodo para Agregar privilegios a los grupos
-		function rel_priv_grup($grupo,$priv){
+		function Nilv_rel_priv_grup($grupo,$priv){
 			if(isset($priv) and isset($grupo)){
 				$q = "delete from rel_priv_grup where  id_grupo='".$grupo."'";
 				$this->db->query($q);

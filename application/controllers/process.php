@@ -5,6 +5,8 @@ class Process extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		ini_set('display_errors', 1);
+		
+		$this->load->model('userAdmin_model');
 	}
 	
 	function index(){
@@ -33,7 +35,6 @@ class Process extends CI_Controller {
 	}
 	
 	public function Nilv_modific_usuario($nombre,$apellido,$email,$usuario=""){
-		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->modificar_usuario($nombre,$apellido,$email,$usuario);
 		if($resultado==true){
 			echo "Actualizacion realizada";
@@ -43,7 +44,6 @@ class Process extends CI_Controller {
 	}
 
 	public function Nilv_insert_usuario($nombre,$apellido,$email,$usuario,$passwd){
-		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->insertar_usuario($nombre,$apellido,$email,$usuario,$passwd);
 		if($resultado==true){
 			echo "Registro realizado";
@@ -53,10 +53,10 @@ class Process extends CI_Controller {
 	}
 
 	public function Nilv_login_usuario(){
-		$usuario = $_POST['username'];
-		$passwd = $_POST['password'];
+		$usuario = $this->input->post("username"); //$_POST['username'];
+		$passwd = $this->input->post("password"); //$_POST['password'];
+		
 		if($passwd!="" and $usuario!=""){
-			$this->load->model('userAdmin_model');
 			$resultado = $this->userAdmin_model->Nilv_login($usuario,$passwd);
 			
 			if($resultado=="true"){
@@ -85,7 +85,6 @@ class Process extends CI_Controller {
 	}
 	
 	public function Nilv_priv_crea_modif($accion,$nombre,$estado="",$codigo=""){
-		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->modif_insert_priv($accion,$nombre,$estado,$codigo);
 		if($resultado=="insed"){
 			echo "Privilegio registrado correctamente";
@@ -99,7 +98,6 @@ class Process extends CI_Controller {
 	}
 
 	public function Nilv_cat_crea_modif($accion,$nombre,$estado="",$codigo=""){
-		$this->load->model('userAdmin_model');
 		$resultado = $this->userAdmin_model->modif_insert_cat($accion,$nombre,$estado,$codigo);
 		if($resultado=="insed"){
 			echo "Categoria registrado correctamente";
@@ -114,7 +112,6 @@ class Process extends CI_Controller {
 	
 	public function Nilv_rel_usuario_grupo($usuario,$grupo){
 		if(isset($usuario) and isset($grupo)){
-			$this->load->model('userAdmin_model');
 			$gruparray = explode("_",$grupo);
 			$resultado = $this->userAdmin_model->rel_usu_grup($usuario,$gruparray);
 			if($resultado=="insed"){
@@ -129,7 +126,6 @@ class Process extends CI_Controller {
 
 	public function Nilv_rel_priv_grupo($grupo,$priv){
 		if(isset($priv) and isset($grupo)){
-			$this->load->model('userAdmin_model');
 			$gruparray = explode("_",$priv);
 			$resultado = $this->userAdmin_model->rel_priv_grup($grupo,$gruparray);
 			if($resultado=="insed"){
@@ -141,5 +137,22 @@ class Process extends CI_Controller {
 			echo "False data error rel_ug";
 		}
 	}
+	//Estadisticas para jquery
+	public function Nilv_setting_jquery($accion){
+		$mem_usage = memory_get_usage(true); 
+        if(!$mem_usage < 1048576)
+            echo round($mem_usage/1048576,2).",".str_replace("M","",ini_get('memory_limit'));
+	}
+	
+	//Notas personales
+	public function Nilv_notas_person($accion){
+		if($accion=="1"){
+			$resultado = $this->userAdmin_model->Nilv_notas_person_insert($this->input->post("notas"));
+			if($resultado){
+				echo "agregada";
+			}
+		}
+	}
+	
 	
 }

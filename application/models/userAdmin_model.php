@@ -1,7 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 	class userAdmin_model extends CI_model{
-		
 	    function __construct(){
 			parent::__construct();
 		}
@@ -20,15 +19,22 @@
 			$consulta = $this->db->get_where('user_admin', array("id" => $usuario));
             print_r($consulta->num_rows());
 			if($consulta->num_rows() > 0){
+				$data = array(
+				   'nombre' => $nombre,
+				   'apellido' => $apellido,
+				   'email' => $email
+				);
+
 				//Expecificar que el usuario sea administrador
 				if($usuario==""){
 					$usuario = $_SESSION["ID_usr"];
-					$setid = "";
 				}else{
-					$setid = ",id='".$usuario."'";
+					$data["usuario"] = $usuario;
 				}
-				$q = "update user_admin set nombre='".$nombre."',apellido='".$apellido."',email='".$email."'".$setid." where id='".$usuario."'";
-				$this->db->query($q);
+				
+				$this->db->where('id', $usuario);
+				$this->db->update('user_admin', $data);
+
 				return true;
 			}else{
 				return false;
@@ -105,9 +111,16 @@
                 $consulta = $this->db->get_where('grupos', array("id" => $codigo));
                 
 				if($consulta->num_rows() > 0){
-					$q = "update grupos set nombre='".$nombre."',estado='".$estado."',id_usuario='".$_SESSION["ID_usr"]."', fecha='".date("Y-m-d")."' where id='".$codigo."'";
-					$this->db->query($q);
+					$data = array(
+					   'nombre' => $nombre,
+					   'estado' => $estado,
+					   'id_usuario' => $_SESSION["ID_usr"],
+					   'fecha' => date("Y-m-d")
+					);
 
+					$this->db->where('id', $codigo);
+					$this->db->update('grupos', $data); 
+					
 					return "modied";
 				}else{
 					return "noexist";
@@ -120,8 +133,12 @@
 		
 		//Elimina los grupos
 		function Nilv_delete_grupo($codigo){
-				$q = "update grupos set estado='I' where id='".$codigo."'";
-				$this->db->query($q);
+			$data = array(
+			   'estado' => "I"
+			);
+
+			$this->db->where('id', $codigo);
+			$this->db->update('grupos', $data);
 		}
 		
 		//MEtodo para crear o modificar privilegios
@@ -129,7 +146,7 @@
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
-                   'estado' => 'A',
+                   'estado' => $estado,
                    'fecha' => date("Y-m-d"),
                    'id_usuario' => $_SESSION["ID_usr"]
                 );
@@ -140,9 +157,16 @@
 			}elseif($accion=="modificar" and isset($nombre) and isset($estado) and $codigo!=""){
                 $consulta = $this->db->get_where('Privilegios', array("id" => $codigo));
 				if($consulta->num_rows() > 0){
-					$q = "update Privilegios set nombre='".$nombre."',estado='".$estado."',id_usuario='".$_SESSION["ID_usr"]."', fecha='".date("Y-m-d")."' where id='".$codigo."'";
-					$this->db->query($q);
-
+					$data = array(
+					   'nombre' => $nombre ,
+					   'estado' => 'A',
+					   'id_usuario' => $_SESSION["ID_usr"],
+					   'fecha' => date("Y-m-d"),
+					);
+					
+					$this->db->where('id', $codigo);
+					$this->db->update('Privilegios', $data);
+					
 					return "modied";
 				}else{
 					return "noexist";
@@ -154,8 +178,12 @@
 		
 		//Elimina los Privilegios
 		function Nilv_delete_priv($codigo){
-				$q = "update Privilegios set estado='I' where id='".$codigo."'";
-				$this->db->query($q);
+			$data = array(
+			   'estado' => "I"
+			);
+
+			$this->db->where('id', $codigo);
+			$this->db->update('Privilegios', $data);
 		}
 
 		//MEtodo para crear o modificar Categorias
@@ -163,7 +191,7 @@
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
-                   'estado' => 'A',
+                   'estado' => $estado,
                    'fecha' => date("Y-m-d"),
                    'id_usuario' => $_SESSION["ID_usr"]
                 );
@@ -172,9 +200,16 @@
 			}elseif($accion=="modificar" and isset($nombre) and isset($estado) and $codigo!=""){
 				$consulta = $this->db->get_where('categorias', array("id" => $codigo));
                 if($consulta->num_rows() > 0){
-					$q = "update categorias set nombre='".$nombre."',estado='".$estado."',id_usuario='".$_SESSION["ID_usr"]."', fecha='".date("Y-m-d")."' where id='".$codigo."'";
-					$this->db->query($q);
-
+					$data = array(
+					   'nombre' => $nombre ,
+					   'estado' => 'A',
+					   'id_usuario' => $_SESSION["ID_usr"],
+					   'fecha' => date("Y-m-d"),
+					);
+					
+					$this->db->where('id', $codigo);
+					$this->db->update('categorias', $data);
+					
 					return "modied";
 				}else{
 					return "noexist";
@@ -186,15 +221,18 @@
 		
 		//Elimina las categorias
 		function Nilv_delete_cat($codigo){
-				$q = "update categorias set estado='I' where id='".$codigo."'";
-				$this->db->query($q);
+			$data = array(
+			   'estado' => "I"
+			);
+
+			$this->db->where('id', $codigo);
+			$this->db->update('categorias', $data);
 		}
 		
 		//MEtodo para Agregar usuario a los grupos
 		function Nilv_rel_usu_grup($usuario,$grupo){
-			if(isset($usuario) and isset($grupo)){
-				$q = "delete from rel_usu_grup where  id_usuario='".$usuario."'";
-				$this->db->query($q);
+			if(isset($usuario) and isset($grupo)){				
+				$this->db->delete('rel_usu_grup', array('id_usuario' => $usuario));
 				
 				foreach($grupo as $grup){
                     $data = array(
@@ -214,9 +252,7 @@
 		//MEtodo para Agregar privilegios a los grupos
 		function Nilv_rel_priv_grup($grupo,$priv){
 			if(isset($priv) and isset($grupo)){
-				$q = "delete from rel_priv_grup where  id_grupo='".$grupo."'";
-				$this->db->query($q);
-				
+				$this->db->delete('rel_priv_grup', array('id_grupo' => $grupo));
 				foreach($priv as $pri){
 					foreach($grupo as $grup){
                     $data = array(
@@ -232,6 +268,29 @@
 			}else{
 				return "false";
 			}
+		}
+		
+		function Nilv_notas_person_insert($nota){
+			$data = array(
+			   'id_usuario' => $_SESSION["ID_usr"],
+			   'nota' => $nota,
+			   'fecha' => date("Y-m-d")
+			);
+			
+           $this->db->insert('notas', $data);
+		   
+		   return true;
+		}	
+		
+		function Nilv_notas_person_select($accion=""){
+			if($accion=="2"){
+				$query = $this->db->query("select * from notas where id = (select max(id) as id from notas)");
+			}else{
+				$this->db->limit(5);
+				$query = $this->db->get('notas');
+			}
+		   
+		   return $query;
 		}
 		
 	}

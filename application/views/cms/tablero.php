@@ -12,7 +12,7 @@
 						
 					<div class="widget-header">
 						<i class="icon-star"></i>
-						<h3>Estadistica</h3>
+						<h3>Estadistica App</h3>
 					</div> <!-- /widget-header -->
 					
 					<div class="widget-content">
@@ -20,8 +20,8 @@
 						<div class="stats">
 							
 							<div class="stat">
-								<span class="stat-value">12,386</span>									
-								Trafico
+								<span class="stat-value">{ramdispo}</span>									
+								RAM Disponible
 							</div> <!-- /stat -->
 							
 							<div class="stat">
@@ -30,7 +30,7 @@
 							</div> <!-- /stat -->
 							
 							<div class="stat">
-								<span class="stat-value">70%</span>									
+								<span class="stat-value">{ramserver}</span>									
 								Recursos Servidor
 							</div> <!-- /stat -->
 							
@@ -44,7 +44,7 @@
 							</div> <!-- /substat -->
 							
 							<div class="stat stat-time">									
-								<span class="stat-value">00:28:13</span>
+								<span class="stat-value">{timeserver}</span>
 								Hora Servidor
 							</div> <!-- /substat -->
 							
@@ -113,14 +113,17 @@
 					</div> <!-- /widget-header -->
 					
 					<div class="widget-content">
-						
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						
-						
-						<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					
-						
+						<textarea name="notas" id="notas" style="width: 530px;' cols="30" rows="3">{notaprincipal}</textarea>
+						<button id="agregarnota" name="agregarnota" style="float: right;">Guardar</button>
+						<div class="widget-content">
+							<table>
+								<tr style="background: -moz-linear-gradient(center top , #FAFAFA 0%, #E9E9E9 100%) repeat scroll 0 0 transparent; radius-border: 6px 6px 6px 6px;">
+									<td style="width: 500px;"><b>Notas</b></td>
+									<td><b>Fecha</b></td>
+								</tr>
+								{notas_list}
+							</table>
+						</div> 
 					</div> <!-- /widget-content -->
 				
 				</div> <!-- /widget -->

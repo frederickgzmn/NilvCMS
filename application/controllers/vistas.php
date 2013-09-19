@@ -6,10 +6,10 @@ class Vistas extends CI_Controller {
 		parent::__construct();
 		ini_set('display_errors', 1);
 		$this->load->model('Param_model');
+		$this->load->model('userAdmin_model');
 	}
 	
 	function index(){
-		//$this->vista_usu($_SESSION["ID_usr"]);
 		//Cargada de datos a la vista
 		$data = array();
 		//url_base en las vistas
@@ -30,7 +30,6 @@ class Vistas extends CI_Controller {
 		$data = array();
 		
 		//llamando modelo
-		$this->load->model('userAdmin_model');
 		$vista_user = $this->userAdmin_model->vista_usuario($usuario);
 
         
@@ -60,13 +59,11 @@ class Vistas extends CI_Controller {
 		$this->parser->parse("cms/login.php",$data);
 	}
 	
-	//
 	public function NilvController($pages="",$data_insert=""){
 		//Declaracion inicial
 		$data = array();
 		
 		//llamando modelo
-		$this->load->model('userAdmin_model');
 		$this->load->library('parser');
 		$vista_user = $this->userAdmin_model->Nilv_vista_usuario($_SESSION["ID_usr"]);
 
@@ -133,7 +130,41 @@ class Vistas extends CI_Controller {
 	}
 	
 	public function tablero(){
-		$this->NilvController();
+		
+		//Hora del servidor
+		$horaservidor = localtime();
+		$data["timeserver"] = $horaservidor[2].":".$horaservidor[1].":".$horaservidor[0];
+		
+		//Memoria ram utilizada
+		$size = memory_get_usage(true);
+		$unit=array('b','kb','mb','gb','tb','pb');
+		$data["ramserver"] = @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+		
+		//Memoria ram disponible para la aplicacion
+		$data["ramdispo"] = ini_get('memory_limit');
+		
+		//Lista de las notas registradas
+		$resultado = $this->userAdmin_model->Nilv_notas_person_select();
+		$data["notas_list"] = "";
+		foreach($resultado->result_array() as $datos){
+			$data["notas_list"] .= "<tr><td>".$datos["nota"]."</td><td>".$datos["fecha"]."</td></tr>";
+		}
+		
+		//Lista de las notas registradas
+		$resultado2 = $this->userAdmin_model->Nilv_notas_person_select(2);
+		$data["notaprincipal"] = "";
+		
+		if($resultado2->num_rows() > 0){
+		   $row = $resultado2->row_array();
+		   $data["notaprincipal"] = $row['nota'];
+		}
+		
+		/*
+		foreach($resultado2->result_array() as $datos2){
+			$data["notaprincipal"] = $datos2["nota"];
+		}*/
+		
+		$this->NilvController("",$data);
 	}
 	
 	public function config(){

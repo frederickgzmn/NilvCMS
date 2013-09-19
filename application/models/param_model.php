@@ -8,11 +8,13 @@ class Param_model extends CI_model{
 	
     //Agregar configuraciones generales
     public function Nilv_set_settings($form){
-		if(!empty($_POST)){
+		$datos_post = $this->input->post();
+		
+		if(!empty($datos_post)){
 			//Limpiando configuraciones
 			$this->db->delete('settings', array('form' => $form));
 			
-			foreach($_POST as $key=>$valores){
+			foreach($datos_post as $key=>$valores){
 				$data = array(
 				   'nombre' => $key,
 				   'slug' => $key,

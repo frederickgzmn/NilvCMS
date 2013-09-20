@@ -114,7 +114,10 @@
 					
 					<div class="widget-content">
 						<textarea name="notas" id="notas" style="width: 530px;' cols="30" rows="3">{notaprincipal}</textarea>
-						<button id="agregarnota" name="agregarnota" style="float: right;">Guardar</button>
+						<button  class="btn btn-primary" id="agregarnota" name="agregarnota" style="float: right;">Guardar</button>
+						<br/>
+							<div name="alert_nota"id="alert_nota" style="display: none; margin-top: -20px; width: 200px;" class="alert alert-success">Nota Guardada Correctamente</div>
+						<br/>
 						<div class="widget-content">
 							<table>
 								<tr style="background: -moz-linear-gradient(center top , #FAFAFA 0%, #E9E9E9 100%) repeat scroll 0 0 transparent; radius-border: 6px 6px 6px 6px;">

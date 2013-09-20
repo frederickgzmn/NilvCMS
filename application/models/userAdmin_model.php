@@ -286,6 +286,7 @@
 			if($accion=="2"){
 				$query = $this->db->query("select * from notas where id = (select max(id) as id from notas)");
 			}else{
+				$this->db->order_by("id", "desc"); 
 				$this->db->limit(5);
 				$query = $this->db->get('notas');
 			}

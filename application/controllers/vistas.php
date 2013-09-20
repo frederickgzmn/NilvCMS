@@ -147,7 +147,7 @@ class Vistas extends CI_Controller {
 		$resultado = $this->userAdmin_model->Nilv_notas_person_select();
 		$data["notas_list"] = "";
 		foreach($resultado->result_array() as $datos){
-			$data["notas_list"] .= "<tr><td>".$datos["nota"]."</td><td>".$datos["fecha"]."</td></tr>";
+			$data["notas_list"] .= "<tr><td title='".$datos["nota"]."'>".substr($datos["nota"],0,70)."</td><td>".$datos["fecha"]."</td></tr>";
 		}
 		
 		//Lista de las notas registradas
@@ -158,11 +158,6 @@ class Vistas extends CI_Controller {
 		   $row = $resultado2->row_array();
 		   $data["notaprincipal"] = $row['nota'];
 		}
-		
-		/*
-		foreach($resultado2->result_array() as $datos2){
-			$data["notaprincipal"] = $datos2["nota"];
-		}*/
 		
 		$this->NilvController("",$data);
 	}

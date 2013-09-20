@@ -105,20 +105,6 @@
 						<span>Tablero</span>
 					</a>	    				
 				</li>
-				<li class="dropdown">					
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-pushpin"></i>
-						<span>Modulos</span>
-						<b class="caret"></b>
-					</a>	
-
-					<ul class="dropdown-menu">
-						<li><a href="{base_url}vistas/config">Usuarios</a></li>
-						<li><a href="{base_url}vistas/perfil">Paginas</a></li>
-						<li class="divider"></li>
-						<li><a href="{base_url}process/Nilv_logout_usuario">Redes Sociales</a></li>
-					</ul>    				
-				</li>
 				
 				<li>
 					<a href="Reportes">
@@ -139,6 +125,21 @@
 						<i class="icon-th-large"></i>
 						<span>Tareas</span>
 					</a>	  				
+				</li>
+				
+				<li class="dropdown">					
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<i class="icon-pushpin"></i>
+						<span>Modulos</span>
+						<b class="caret"></b>
+					</a>	
+
+					<ul class="dropdown-menu">
+						<li><a href="{base_url}vistas/config">Usuarios</a></li>
+						<li><a href="{base_url}vistas/perfil">Paginas</a></li>
+						<li class="divider"></li>
+						<li><a href="{base_url}process/Nilv_logout_usuario">Redes Sociales</a></li>
+					</ul>    				
 				</li>
 				
 				<li class="dropdown">					

@@ -6,14 +6,10 @@ $(document).ready(function() {
 });
 
 $(function () {
-	$.post("../process/Nilv_setting_jquery/1","hola=holamundo",function(data2){
+	$.post("../process/Nilv_setting_jquery/1","setting=datos",function(data2){
 		var datos = data2.split(",");
 		var data = [datos[0]*1,datos[1]*1];
 		var series = 2;
-		/*for( var i = 0; i<series; i++)
-		{
-			data[i] = { label: "Series "+(i+1), data: Math.floor(Math.random()*100)+1 }
-		}*/
 
 		$.plot($("#donut-chart"), data,
 		{
@@ -27,10 +23,20 @@ $(function () {
 		});
 	});
 	
+	//Agregando nota
 	$("#agregarnota").click(function(){
 		$.post("../process/Nilv_notas_person/1","notas="+$("#notas").val(),function(data){
-			$("#notas_list").html(data);
-			window.location.href = "tablero";
+			//$("#notas_list").html(data);
+			if(data=="agregada"){
+				$("#alert_nota").show(800);
+			}else{
+				$("#alert_nota").html("Ha ocurrido un error al agregar la nota");
+				$("#alert_nota").show(800);
+			}
+			
+			setTimeout(function () {
+				$(".alert").hide(1000);
+			}, 4000);
 		});	
 	});
 	

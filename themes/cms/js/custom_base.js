@@ -40,4 +40,15 @@ $(function () {
 		});	
 	});
 	
+	//Agregando nota
+	$("#boton_cambio_clave").click(function(){
+		$.post("../process/Nilv_cambio_clave/1","passwd="+$("#passwd").val()+"&&passwd2="+$("#passwd2").val(),function(data){
+			$("#alertas").html(data);
+			
+			setTimeout(function () {
+				$(".alert").hide(1000);
+			}, 4000);
+		});	
+	});
+	
 });

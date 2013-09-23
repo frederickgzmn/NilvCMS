@@ -154,5 +154,42 @@ class Process extends CI_Controller {
 		}
 	}
 	
+	//Actualizacion de datos de los usuarios
+	public function Nilv_Actualizacion_user(){
+		if($this->input->post("grupo") and $this->input->post("nombre") and $this->input->post("apellido") and $this->input->post("email")){
+			if($this->input->post("firma")){
+				$firma = $this->input->post("firma");
+			}else{
+				$firma = "";
+			}
+			$resultado = $this->userAdmin_model->Nilv_modificar_usuario($this->input->post("grupo"),$this->input->post("nombre"),$this->input->post("apellido"),$this->input->post("email"),$firma,$_SESSION["ID_usr"]);
+			
+			
+			if($resultado=="true"){
+				$_SESSION["error_config_user"] = '<div class="alert alert-success">Actualizacion realizada</div>';
+				redirect("vistas/perfil");
+			}else{
+				$_SESSION["error_config_user"] = '<div class="alert alert-danger">Un problema con el servidor de base de datos a ocurrido.</div>';
+				redirect("vistas/perfil");
+			}
+		}else{
+			$_SESSION["error_config_user"] = '<div class="alert alert-danger">Parametros vacios o incorrectos</div>';
+			redirect("vistas/perfil");
+		}
+	}
+	//Actualizacion de clave de los usuarios
+	public function Nilv_cambio_clave($enganio=""){
+		if($this->input->post("passwd") and $this->input->post("passwd2")){
+			if($this->input->post("passwd")==$this->input->post("passwd2")){
+				$resultado = $this->userAdmin_model->Nilv_cambio_clave($_SESSION["ID_usr"]);
+				echo '<div class="alert alert-success">Contrase&ntilde;a Actualizada</div>';
+			}else{
+				echo '<div class="alert alert-danger">Los datos ingresados no coinciden</div>';
+			}
+		}else{
+			echo '<div class="alert alert-danger">Parametros vacios</div>';
+		}
+	}
+	
 	
 }

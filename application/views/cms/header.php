@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="{base_url}themes/cms/css/pages/base-admin-2.css">
     <link rel="stylesheet" href="{base_url}themes/cms/css/pages/base-admin-2-responsive.css">
 	<link href="{base_url}themes/cms/css/pages/dashboard.css" rel="stylesheet" />
+	<link href="{base_url}themes/cms/css/custom_base.css" rel="stylesheet" />
 	{custom_css}
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<!---<script src="{base_url}themes/cms/js/jquery-1.7.2.min.js"></script>

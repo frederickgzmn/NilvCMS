@@ -15,21 +15,22 @@
         }
 		
 		//Metodo para modificar los user_admin
-		function Nilv_modificar_usuario($nombre,$apellido,$email,$usuario=""){
+		function Nilv_modificar_usuario($grupo,$nombre,$apellido,$email,$firma,$usuario=""){
 			$consulta = $this->db->get_where('user_admin', array("id" => $usuario));
-            print_r($consulta->num_rows());
 			if($consulta->num_rows() > 0){
 				$data = array(
 				   'nombre' => $nombre,
 				   'apellido' => $apellido,
-				   'email' => $email
+				   'email' => $email,
+				   'firma' => $this->input->post("firma"),
+				   'grupo' => $this->input->post("grupo")
 				);
 
 				//Expecificar que el usuario sea administrador
 				if($usuario==""){
 					$usuario = $_SESSION["ID_usr"];
 				}else{
-					$data["usuario"] = $usuario;
+					$data["id"] = $usuario;
 				}
 				
 				$this->db->where('id', $usuario);
@@ -161,7 +162,7 @@
 					   'nombre' => $nombre ,
 					   'estado' => 'A',
 					   'id_usuario' => $_SESSION["ID_usr"],
-					   'fecha' => date("Y-m-d"),
+					   'fecha' => date("Y-m-d")
 					);
 					
 					$this->db->where('id', $codigo);
@@ -204,7 +205,7 @@
 					   'nombre' => $nombre ,
 					   'estado' => 'A',
 					   'id_usuario' => $_SESSION["ID_usr"],
-					   'fecha' => date("Y-m-d"),
+					   'fecha' => date("Y-m-d")
 					);
 					
 					$this->db->where('id', $codigo);
@@ -292,6 +293,15 @@
 			}
 		   
 		   return $query;
+		}
+		
+		function Nilv_cambio_clave($codigo){
+			$data = array(
+			   'passwd' => md5($this->input->post("passwd").$codigo)
+			);
+
+			$this->db->where('id', $codigo);
+			$this->db->update('user_admin', $data);
 		}
 		
 	}

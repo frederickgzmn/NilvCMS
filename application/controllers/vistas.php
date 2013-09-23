@@ -216,5 +216,31 @@ class Vistas extends CI_Controller {
 		$this->NilvController("config",$data);
 		$_SESSION["error_config"]="";
 	}
+	//Vista de la configuracion de los perfiles
+	public function perfil(){
+		$data = array();
+		$resultado = $this->userAdmin_model->Nilv_vista_usuario($_SESSION["ID_usr"]);
+		$usuario_datos = $resultado->row();
+		
+		//Error de guardado
+		if(isset($_SESSION["error_config_user"]))
+			$data["error_config_user"] = $_SESSION["error_config_user"];
+		else
+			$data["error_config_user"] = "";
+		
+		$data["codigo"] = $usuario_datos->id;
+		$data["nombre_user"] = $usuario_datos->nombre;
+		$data["apellido"] = $usuario_datos->apellido;
+		$data["email"] = $usuario_datos->email;
+		$data["firma"] = $usuario_datos->firma;
+		if($usuario_datos->grupo=="S"){
+			$data["grupo"] = "selected='selected'";
+		}else{
+			$data["grupo"] = "";
+		}
+		
+		$this->NilvController("perfil",$data);
+		$_SESSION["error_config_user"] = "";
+	}
 	
 }

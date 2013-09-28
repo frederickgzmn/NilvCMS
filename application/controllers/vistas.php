@@ -222,6 +222,18 @@ class Vistas extends CI_Controller {
 		$resultado = $this->userAdmin_model->Nilv_vista_usuario($_SESSION["ID_usr"]);
 		$usuario_datos = $resultado->row();
 		
+		$resultado_priv = $this->userAdmin_model->Nilv_select_priv();
+		$data["tabla_privilegios"] = "<table class='table table-bordered table-hover table-striped' id='tabla_privilegios' name='tabla_privilegios'>
+			<tr>
+				<td>Acci&oacute;n</td>
+				<td>Privilegio</td>
+			</tr>
+		";
+		foreach($resultado_priv->result_array() as $privileg){
+			$data["tabla_privilegios"] .= "<tr><td><input class='privileg_grup' name='".$privileg["id"]."' id='".$privileg["id"]."' type='checkbox'/></td><td> ".$privileg["nombre"]."</td></tr>";
+		}
+		
+		$data["tabla_privilegios"] .= "</table>";
 		//Error de guardado
 		if(isset($_SESSION["error_config_user"]))
 			$data["error_config_user"] = $_SESSION["error_config_user"];
@@ -241,6 +253,58 @@ class Vistas extends CI_Controller {
 		
 		$this->NilvController("perfil",$data);
 		$_SESSION["error_config_user"] = "";
+	}
+	
+	public function componentes(){
+		//Lista de privilegios checkbox
+		$resultado_priv = $this->userAdmin_model->Nilv_select_priv();
+		$cabezera_tabla = "<table class='table table-bordered table-hover table-striped' id='tabla_privilegios' name='tabla_privilegios'>
+		<tr>
+		<td>Privilegio</td>
+		<td>Acci&oacute;n</td>
+		</tr>
+		";
+		$data["tabla_privilegios"] = $cabezera_tabla;
+		$data["tabla_privilegios2"] = $cabezera_tabla;
+		foreach($resultado_priv->result_array() as $privileg){
+			$data["tabla_privilegios"] .= "<tr><td> ".$privileg["nombre"]."</td><td><input class='privileg_grup' name='".$privileg["id"]."' id='".$privileg["id"]."' type='checkbox'/></td></tr>";
+		}
+		$data["tabla_privilegios"] .= "</table>";
+		
+		//Lista de privilegios img
+		foreach($resultado_priv->result_array() as $privileg2){
+			$data["tabla_privilegios2"] .= "<tr><td> ".$privileg2["nombre"]."</td><td><a href='#'><img width='25' src='".base_url()."themes/cms/img/editar.png' class='privileg_grup' name='".$privileg2["id"]."' id='".$privileg2["id"]."'></a></td></tr>";
+		}
+		$data["tabla_privilegios2"] .= "</table>";
+		
+		
+		//Lista de grupos
+		$resultado_grup = $this->userAdmin_model->Nilv_select_grup();
+		$data["tabla_grup"] = "<table class='table table-bordered table-hover table-striped' id='tabla_privilegios' name='tabla_privilegios'>
+		<tr>
+		<td>Grupo</td>
+		<td>Acci&oacute;n</td>
+		</tr>
+		";
+		foreach($resultado_grup->result_array() as $grup){
+			$data["tabla_grup"] .= "<tr><td> ".$grup["nombre"]."</td><td><a href='#'><img width='25' src='".base_url()."themes/cms/img/editar.png' name='".$grup["id"]."' id='".$grup["id"]."' /></td></tr>";
+		}
+		$data["tabla_grup"] .= "</table>";
+		
+		//Lista de categoria
+		$resultado_cat = $this->userAdmin_model->Nilv_select_cat();
+		$data["tabla_cat"] = "<table class='table table-bordered table-hover table-striped' id='tabla_privilegios' name='tabla_privilegios'>
+		<tr>
+		<td>Categoria</td>
+		<td>Acci&oacute;n</td>
+		</tr>
+		";
+		foreach($resultado_cat->result_array() as $cat){
+			$data["tabla_cat"] .= "<tr><td> ".$cat["nombre"]."</td><td><a href='#'><img width='25' src='".base_url()."themes/cms/img/editar.png' name='".$cat["id"]."' id='".$cat["id"]."'></a></td></tr>";
+		}
+		$data["tabla_cat"] .= "</table>";
+		
+		$this->NilvController("componentes",$data);
 	}
 	
 }

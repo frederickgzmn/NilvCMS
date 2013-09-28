@@ -93,6 +93,7 @@
                     <File name="application\views\cms\tablero.php" />
                     <File name="application\views\cms\test.html" />
                     <File name="application\views\cms\perfil.php" />
+                    <File name="application\views\cms\componentes.php" />
                 </Folder>
                 <File name="application\views\index.html" />
             </Folder>

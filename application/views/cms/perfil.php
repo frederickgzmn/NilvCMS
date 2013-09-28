@@ -9,7 +9,7 @@
 					<div id="tabs">
 						<ul>
 							<li><a href="#tabs-gen">General</a></li>
-							<li><a href="#tabs-user">Privilegios y Grupos</a></li>
+
 						</ul>
 						<div id="tabs-gen">
 						{error_config_user}
@@ -111,51 +111,6 @@
 								  </fieldset>
 							</form>
 						</div>
-						<div id="tabs-user">
-							<form class="form-horizontal" method="post" id="form_config_2" name="form_config_2" action="{base_url}index.php/process/Nilv_set_settings/2" novalidate="novalidate">
-							<!--------- Petaña de configuracion de usuarios-------->
-							<div class="control-group">
-									<label for="validateSelect" class="control-label titulo">Habilitar Perfiles</label>
-									<div class="tituloslog">
-										Permitir a los usuarios editar sus perfiles.
-									</div>
-									<div class="controls">
-									  <select name="perfilon" id="perfilon" class="preg_conf_2">
-										<option value="S">Si</option>
-										<option {perfilon} value="N">No</option>
-									  </select>
-									</div>
-							</div>
-							
-							<div class="control-group">
-									<label for="validateSelect" class="control-label titulo">Notificaciones</label>
-									<div class="tituloslog">
-										Enviar mensajes de correo electronico, cuando un usuario se registre.
-									</div>
-									<div class="controls">
-									  <select name="notificmsg" id="notificmsg" class="preg_conf_2">
-										<option value="S">Si</option>
-										<option {notificmsg} value="N">No</option>
-									  </select>
-									</div>
-							</div>
-							<div class="control-group">
-									<label for="validateSelect" class="control-label titulo">Estado de registro</label>
-									<div class="tituloslog">
-										Permitir que los usuarios se registren al sistema.
-									</div>
-									<div class="controls">
-									  <select name="statregister" id="statregister" class="preg_conf_2">
-										<option value="S">Si</option>
-										<option {statregister} value="N">No</option>
-									  </select>
-									</div>
-							</div>
-							<div class="form-actions">
-									  <button class="btn btn-danger btn" type="submit">Guardar</button>&nbsp;&nbsp;
-									  <button class="btn volver" type="reset">Cancel</button>
-							</div>
-							</form>
 						</div>
 					</div>
 				</div> <!-- /widget-content -->

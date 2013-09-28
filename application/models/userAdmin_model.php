@@ -95,7 +95,7 @@
 		}
 		
 		//Metodo para crear o modificar grupos
-		function Nilv_modif_insert_grupos($accion,$nombre,$estado="",$codigo=""){
+		function Nilv_modif_insert_grupos($accion,$nombre,$codigo=""){
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
@@ -107,14 +107,13 @@
                 $this->db->insert('grupos', $data);
                 
 				return "insed";
-			}elseif($accion=="modificar" and isset($nombre) and isset($estado) and $codigo!=""){
+			}elseif($accion=="modificar" and isset($nombre) and $codigo!=""){
                 
                 $consulta = $this->db->get_where('grupos', array("id" => $codigo));
                 
 				if($consulta->num_rows() > 0){
 					$data = array(
 					   'nombre' => $nombre,
-					   'estado' => $estado,
 					   'id_usuario' => $_SESSION["ID_usr"],
 					   'fecha' => date("Y-m-d")
 					);
@@ -143,11 +142,10 @@
 		}
 		
 		//MEtodo para crear o modificar privilegios
-		function Nilv_modif_insert_priv($accion,$nombre,$estado="",$codigo=""){
+		function Nilv_modif_insert_priv($accion,$nombre,$codigo=""){
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
-                   'estado' => $estado,
                    'fecha' => date("Y-m-d"),
                    'id_usuario' => $_SESSION["ID_usr"]
                 );
@@ -155,12 +153,11 @@
                 $this->db->insert('Privilegios', $data);
                 
                 return "insed";
-			}elseif($accion=="modificar" and isset($nombre) and isset($estado) and $codigo!=""){
+			}elseif($accion=="modificar" and isset($nombre) and $codigo!=""){
                 $consulta = $this->db->get_where('Privilegios', array("id" => $codigo));
 				if($consulta->num_rows() > 0){
 					$data = array(
 					   'nombre' => $nombre ,
-					   'estado' => 'A',
 					   'id_usuario' => $_SESSION["ID_usr"],
 					   'fecha' => date("Y-m-d")
 					);
@@ -186,24 +183,46 @@
 			$this->db->where('id', $codigo);
 			$this->db->update('Privilegios', $data);
 		}
+		
+		//Muestra los Privilegios
+		function Nilv_select_priv($codigo=""){
+			if($codigo!=""){
+				$this->db->where('id', $codigo);
+			}
+			return $this->db->get('Privilegios');
+		}
+
+		//Muestra los Grupos
+		function Nilv_select_grup($codigo=""){
+			if($codigo!=""){
+				$this->db->where('id', $codigo);
+			}
+			return $this->db->get('grupos');
+		}
+		
+		//Muestra las categorias
+		function Nilv_select_cat($codigo=""){
+			if($codigo!=""){
+				$this->db->where('id', $codigo);
+			}
+			return $this->db->get('categorias');
+		}
 
 		//MEtodo para crear o modificar Categorias
-		function Nilv_modif_insert_cat($accion,$nombre,$estado="",$codigo=""){
+		function Nilv_modif_insert_cat($accion,$nombre,$codigo=""){
 			if($accion=="insertar" and isset($nombre)){
                 $data = array(
                    'nombre' => $nombre ,
-                   'estado' => $estado,
                    'fecha' => date("Y-m-d"),
                    'id_usuario' => $_SESSION["ID_usr"]
                 );
                 $this->db->insert('categorias', $data);
 				return "insed";
-			}elseif($accion=="modificar" and isset($nombre) and isset($estado) and $codigo!=""){
+			}elseif($accion=="modificar" and isset($nombre) and $codigo!=""){
 				$consulta = $this->db->get_where('categorias', array("id" => $codigo));
                 if($consulta->num_rows() > 0){
 					$data = array(
 					   'nombre' => $nombre ,
-					   'estado' => 'A',
 					   'id_usuario' => $_SESSION["ID_usr"],
 					   'fecha' => date("Y-m-d")
 					);

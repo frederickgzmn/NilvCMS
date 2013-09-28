@@ -191,5 +191,71 @@ class Process extends CI_Controller {
 		}
 	}
 	
+	public function Nilv_modif_insert_grupos($accion=""){
+		if($accion=="insertar"){
+			if($this->input->post("nombre")){
+				$resultado = $this->userAdmin_model->Nilv_modif_insert_grupos($accion,$this->input->post("nombre"));
+				if($resultado=="insed"){
+					echo '<div class="alert alert-success">Grupo Agregado Correctamente</div>';
+				}
+			}else{
+				echo '<div class="alert alert-danger">Campo Nombre vacio</div>';
+			}
+		}elseif($accion=="modificar"){
+			if($this->input->post("nombre") and $this->input->post("codigo")){
+				$resultado2 = $this->userAdmin_model->Nilv_modif_insert_grupos($accion,$this->input->post("nombre"),$this->input->post("codigo"));
+				if($resultado2=="modied"){
+					echo '<div class="alert alert-success">Grupo Modificado Correctamente</div>';
+				}
+			}else{
+				echo '<div class="alert alert-danger">Campo vacio</div>';
+			}
+		}
+	}
+	
+	public function Nilv_modif_insert_priv($accion=""){
+		if($accion=="insertar"){
+			if($this->input->post("nombre")){
+				$resultado = $this->userAdmin_model->Nilv_modif_insert_priv($accion,$this->input->post("nombre"));
+				if($resultado=="insed"){
+					echo '<div class="alert alert-success">Privilegio Agregado Correctamente</div>';
+				}
+				}else{
+				echo '<div class="alert alert-danger">Campo Nombre vacio</div>';
+			}
+			}elseif($accion=="modificar"){
+			if($this->input->post("nombre") and $this->input->post("codigo")){
+				$resultado2 = $this->userAdmin_model->Nilv_modif_insert_priv($accion,$this->input->post("nombre"),$this->input->post("codigo"));
+				if($resultado2=="modied"){
+					echo '<div class="alert alert-success">Privilegio Modificado Correctamente</div>';
+				}
+				}else{
+				echo '<div class="alert alert-danger">Campo vacio</div>';
+			}
+		}
+	}
+	
+	public function Nilv_modif_insert_cat($accion=""){
+		if($accion=="insertar"){
+			if($this->input->post("nombre")){
+				$resultado = $this->userAdmin_model->Nilv_modif_insert_cat($accion,$this->input->post("nombre"));
+				if($resultado=="insed"){
+					echo '<div class="alert alert-success">Categoria Agregada Correctamente</div>';
+				}
+				}else{
+				echo '<div class="alert alert-danger">Campo Nombre vacio</div>';
+			}
+			}elseif($accion=="modificar"){
+			if($this->input->post("nombre") and $this->input->post("codigo")){
+				$resultado2 = $this->userAdmin_model->Nilv_modif_insert_cat($accion,$this->input->post("nombre"),$this->input->post("codigo"));
+				if($resultado2=="modied"){
+					echo '<div class="alert alert-success">Categoria Modificada Correctamente</div>';
+				}
+				}else{
+				echo '<div class="alert alert-danger">Campo vacio</div>';
+			}
+		}
+	}
+	
 	
 }

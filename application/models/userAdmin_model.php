@@ -101,6 +101,7 @@
                    'nombre' => $nombre ,
                    'estado' => 'A',
                    'fecha' => date("Y-m-d"),
+				   'estado' => "A",
                    'id_usuario' => $_SESSION["ID_usr"]
                 );
                 
@@ -147,6 +148,7 @@
                 $data = array(
                    'nombre' => $nombre ,
                    'fecha' => date("Y-m-d"),
+				   'estado' => "A",
                    'id_usuario' => $_SESSION["ID_usr"]
                 );
                 
@@ -189,6 +191,7 @@
 			if($codigo!=""){
 				$this->db->where('id', $codigo);
 			}
+			$this->db->where('estado', "A");
 			return $this->db->get('Privilegios');
 		}
 
@@ -197,6 +200,7 @@
 			if($codigo!=""){
 				$this->db->where('id', $codigo);
 			}
+			$this->db->where('estado', "A");
 			return $this->db->get('grupos');
 		}
 		
@@ -205,6 +209,7 @@
 			if($codigo!=""){
 				$this->db->where('id', $codigo);
 			}
+			$this->db->where('estado', "A");
 			return $this->db->get('categorias');
 		}
 
@@ -214,6 +219,7 @@
                 $data = array(
                    'nombre' => $nombre ,
                    'fecha' => date("Y-m-d"),
+                   'estado' => "A",
                    'id_usuario' => $_SESSION["ID_usr"]
                 );
                 $this->db->insert('categorias', $data);

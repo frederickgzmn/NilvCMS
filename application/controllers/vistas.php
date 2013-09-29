@@ -273,7 +273,7 @@ class Vistas extends CI_Controller {
 		
 		//Lista de privilegios img
 		foreach($resultado_priv->result_array() as $privileg2){
-			$data["tabla_privilegios2"] .= "<tr><td> ".$privileg2["nombre"]."</td><td><a href='#'><img width='25' src='".base_url()."themes/cms/img/editar.png' class='privileg_grup' name='".$privileg2["id"]."' id='".$privileg2["id"]."'></a></td></tr>";
+			$data["tabla_privilegios2"] .= "<tr><td> ".$privileg2["nombre"]."</td><td><a href='javascript:;'><img width='25' src='".base_url()."themes/cms/img/editar.png' title='".$privileg2["nombre"]."' class='priv_edit' name='".$privileg2["id"]."' id='".$privileg2["id"]."'></a><a href='javascript:;'><img width='20' src='".base_url()."themes/cms/img/delete.png' title='Eliminar privilegio ".$privileg2["nombre"]."' class='priv_delete' name='".$privileg2["id"]."' id='".$privileg2["id"]."'></a></td></tr>";
 		}
 		$data["tabla_privilegios2"] .= "</table>";
 		
@@ -287,7 +287,7 @@ class Vistas extends CI_Controller {
 		</tr>
 		";
 		foreach($resultado_grup->result_array() as $grup){
-			$data["tabla_grup"] .= "<tr><td> ".$grup["nombre"]."</td><td><a href='#'><img width='25' src='".base_url()."themes/cms/img/editar.png' name='".$grup["id"]."' id='".$grup["id"]."' /></td></tr>";
+			$data["tabla_grup"] .= "<tr><td> ".$grup["nombre"]."</td><td><a href='javascript:;'><img class='grupos_edit' width='25' src='".base_url()."themes/cms/img/editar.png' title='".$grup["nombre"]."' name='".$grup["id"]."' id='".$grup["id"]."' /></a><a href='javascript:;'><img class='grup_delete' width='20' src='".base_url()."themes/cms/img/delete.png' title='Eliminar Grupo ".$grup["nombre"]."' name='".$grup["id"]."' id='".$grup["id"]."' /></a></td></tr>";
 		}
 		$data["tabla_grup"] .= "</table>";
 		
@@ -300,7 +300,7 @@ class Vistas extends CI_Controller {
 		</tr>
 		";
 		foreach($resultado_cat->result_array() as $cat){
-			$data["tabla_cat"] .= "<tr><td> ".$cat["nombre"]."</td><td><a href='#'><img width='25' src='".base_url()."themes/cms/img/editar.png' name='".$cat["id"]."' id='".$cat["id"]."'></a></td></tr>";
+			$data["tabla_cat"] .= "<tr><td> ".$cat["nombre"]."</td><td><a href='javascript:;'><img width='25' class='cat_edit' src='".base_url()."themes/cms/img/editar.png' title='".$cat["nombre"]."' name='".$cat["id"]."' id='".$cat["id"]."'></a><a href='javascript:;'><img width='20' class='cat_delete' src='".base_url()."themes/cms/img/delete.png' title='Eliminar categoria ".$cat["nombre"]."' name='".$cat["id"]."' id='".$cat["id"]."'></a></td></tr>";
 		}
 		$data["tabla_cat"] .= "</table>";
 		

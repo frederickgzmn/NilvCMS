@@ -153,6 +153,7 @@
 					<ul class="dropdown-menu">
 						<li><a href="{base_url}vistas/config">General</a></li>
 						<li><a href="{base_url}vistas/perfil">Cuenta</a></li>
+						<li><a href="{base_url}vistas/componentes">Componentes</a></li>
 						<li class="divider"></li>
 						<li><a href="{base_url}process/Nilv_logout_usuario">Signup</a></li>
 					</ul>    				

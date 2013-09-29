@@ -229,7 +229,7 @@ class Process extends CI_Controller {
 				if($resultado2=="modied"){
 					echo '<div class="alert alert-success">Privilegio Modificado Correctamente</div>';
 				}
-				}else{
+			}else{
 				echo '<div class="alert alert-danger">Campo vacio</div>';
 			}
 		}
@@ -252,10 +252,50 @@ class Process extends CI_Controller {
 					echo '<div class="alert alert-success">Categoria Modificada Correctamente</div>';
 				}
 				}else{
-				echo '<div class="alert alert-danger">Campo vacio</div>';
+				
 			}
 		}
 	}
 	
+	/*
+	 Metodo para seleccionar los grupos
+	public function Nilv_select_grup(){
+		if($this->input->post("codigo")){
+			$resultado = $this->userAdmin_model->Nilv_select_grup($this->input->post("codigo"));
+			print_r($resultado->result_array());
+		}else{
+			echo '<div class="alert alert-danger">Problema al seleccionar grupo, actualize la pagina y intente nuevamente</div>';
+		}
+	}*/
+	
+	
+	public function Nilv_delete_cat(){
+		if($this->input->post("codigo")){
+			$this->userAdmin_model->Nilv_delete_cat($this->input->post("codigo"));
+			echo '<div class="alert alert-success">Categoria Eliminada Correctamente</div>';
+		}else{
+			echo '<div class="alert alert-danger">Problema al seleccionar grupo, actualize la pagina y intente nuevamente</div>';
+		}
+		
+	}
+	
+	public function Nilv_delete_priv(){
+		if($this->input->post("codigo")){
+			$this->userAdmin_model->Nilv_delete_priv($this->input->post("codigo"));
+			echo '<div class="alert alert-success">Privilegio Eliminado Correctamente</div>';
+			}else{
+			echo '<div class="alert alert-danger">Problema al seleccionar grupo, actualize la pagina y intente nuevamente</div>';
+		}
+		
+	}	
+	public function Nilv_delete_grupo(){
+		if($this->input->post("codigo")){
+			$this->userAdmin_model->Nilv_delete_grupo($this->input->post("codigo"));
+			echo '<div class="alert alert-success">Grupo Eliminado Correctamente</div>';
+			}else{
+			echo '<div class="alert alert-danger">Problema al seleccionar grupo, actualize la pagina y intente nuevamente</div>';
+		}
+		
+	}
 	
 }

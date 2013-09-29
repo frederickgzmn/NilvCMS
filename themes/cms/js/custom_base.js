@@ -79,8 +79,8 @@ $(function () {
 		});	
 	});
 	
-	//Agregando grupos
-	$("#boton_modificar_grup").click(function(){
+	//Modificar grupos
+	$("#boton_modific_grup").click(function(){
 		$.post("../process/Nilv_modif_insert_grupos/modificar","nombre="+$("#codigo_grup").val()+"&&codigo="+$("#grup_modific").val(),function(data){
 			$("#alertas_grupo").html(data);
 			
@@ -104,7 +104,7 @@ $(function () {
 	});
 	
 	//Agregando privilegios
-	$("#boton_modificar_priv").click(function(){
+	$("#boton_modific_priv").click(function(){
 		$.post("../process/Nilv_modif_insert_priv/modificar","nombre="+$("#codigo_priv").val()+"&&codigo="+$("#priv_modific").val(),function(data){
 			$("#alertas_priv").html(data);
 			
@@ -128,7 +128,7 @@ $(function () {
 	});
 	
 	//Agregando categoria
-	$("#boton_modificar_cat").click(function(){
+	$("#boton_modific_cat").click(function(){
 		$.post("../process/Nilv_modif_insert_cat/modificar","nombre="+$("#codigo_cat").val()+"&&codigo="+$("#cat_modific").val(),function(data){
 			$("#alertas_cat").html(data);
 			
@@ -138,4 +138,64 @@ $(function () {
 			}, 4000);
 		});	
 	});
+	
+	//Eliminar categoria
+	$(".cat_delete").click(function(){
+		if(confirm("Esta seguro de querer eliminar esta categoria?")){				
+			$.post("../process/Nilv_delete_cat","codigo="+$(this).attr("id"),function(data){
+				$("#alertas_cat").html(data);
+				
+				setTimeout(function () {
+					$(".alert").hide(1000);
+					location.reload();
+				}, 4000);
+			});
+		}
+	});	
+	//Eliminar Privilegio
+	$(".priv_delete").click(function(){
+		if(confirm("Esta seguro de querer eliminar este privilegio?")){				
+			$.post("../process/Nilv_delete_priv","codigo="+$(this).attr("id"),function(data){
+				$("#alertas_priv").html(data);
+				
+				setTimeout(function () {
+					$(".alert").hide(1000);
+					location.reload();
+				}, 4000);
+			});
+		}
+	});	
+	//Eliminar categoria
+	$(".grup_delete").click(function(){
+		if(confirm("Esta seguro de querer eliminar este grupo?")){				
+			$.post("../process/Nilv_delete_grupo","codigo="+$(this).attr("id"),function(data){
+				$("#alertas_grupo").html(data);
+				
+				setTimeout(function () {
+					$(".alert").hide(1000);
+					location.reload();
+				}, 4000);
+			});
+		}
+	});
+	
+	//Modificando Grupos
+	$(".grupos_edit").click(function(){
+		//Cargando los datos para ser editados
+		$("#codigo_grup").val($(this).attr("title"));
+		$("#grup_modific").val($(this).attr("id"));
+	});
+		//Modificando categorias
+	$(".cat_edit").click(function(){
+		//Cargando los datos para ser editados
+		$("#codigo_cat").val($(this).attr("title"));
+		$("#cat_modific").val($(this).attr("id"));
+	});
+		//Modificando Privilegios
+	$(".priv_edit").click(function(){
+		//Cargando los datos para ser editados
+		$("#codigo_priv").val($(this).attr("title"));
+		$("#priv_modific").val($(this).attr("id"));
+	});
+	
 });

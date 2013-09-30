@@ -88,14 +88,16 @@ class Vistas extends CI_Controller {
 		
 		//cargando custom javascript
 		if(isset($data["custom_js"]) and $data["custom_js"]!=""){
-			$data["custom_js"] = '<script src="'.$data["base_url"].'themes/cms/js/'.$data["custom_js"].'.js"></script>';
+			foreach ($data["custom_js"] as $customJs)
+				$data["custom_js"] .= '<script src="'.$data["base_url"].'themes/cms/js/'.$customJs.'.js"></script>' . "/n/t";
 		}else{
 			$data["custom_js"] = "";
 		}
 		
 		//cargando custom css		
 		if(isset($data["custom_css"]) and $data["custom_css"]!=""){
-			$data["custom_css"] = '<link href="'.$data["base_url"].'themes/cms/css/'.$data["custom_css"].'.css" rel="stylesheet" type="text/css" />';
+			foreach ($data["custom_css"] as $custom_css)
+				$data["custom_css"] .= '<link href="'.$data["base_url"].'themes/cms/css/'.$custom_css.'.css" rel="stylesheet" type="text/css" />' . "/n/t";
 		}else{
 			$data["custom_css"] = "";
 		}
@@ -158,7 +160,6 @@ class Vistas extends CI_Controller {
 		   $row = $resultado2->row_array();
 		   $data["notaprincipal"] = $row['nota'];
 		}
-		
 		$this->NilvController("",$data);
 	}
 	

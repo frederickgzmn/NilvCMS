@@ -32,7 +32,20 @@
 											<button name="boton_modific_grup" id="boton_modific_grup" class="btn btn-info" type="button">Modificar</button>
 											<button name="boton_nuevo_grup" id="boton_nuevo_grup" class="btn btn-info" type="button">Nuevo</button>
 										</div>
-									
+									</fieldset>
+									<fieldset id="privilegios" name="privilegios" style="display: none;">
+										<legend>Privilegios</legend>
+										<div class="control-group">
+											<label for="validateSelect" class="control-label titulo">Asignaci&oacute;n de Privilegios</label>
+											<div name="privileg" id="privileg" class="controls">
+												{tabla_privilegios}
+											</div>
+										</div>
+										<div id="alertas_priv" name="alertas_priv"></div>
+										
+									<div class="form-actions">
+										Nota: Los cambios de privilegio que realize, se agregaran instantaneamente.
+									</div>
 									</fieldset>
 									<fieldset id="user_autentificacion">
 										<legend>Lista de Grupos</legend>
@@ -40,24 +53,7 @@
 											{tabla_grup}
 										</div>
 									</fieldset>
-									<fieldset id="privilegios">
-										<legend>Privilegios</legend>
-										<div class="control-group">
-											<label for="validateSelect" class="control-label titulo">Asignaci&oacute;n de Privilegios</label>
-											<div class="tituloslog">
-												Permitir cambiar de privilegios los usuarios administradores.
-											</div>
-											<div name="privileg" id="privileg" class="controls">
-												{tabla_privilegios}
-											</div>
-										</div>
-										<div id="alertas2" name="alertas2"></div>
-										
-									</fieldset>
-								   
-									<div class="form-actions">
-										Nota: Los cambios de privilegio que realize, se agregaran instantaneamente.
-									</div>
+									  
 								  </fieldset>
 						</div>
 						<div id="tabs-priv">

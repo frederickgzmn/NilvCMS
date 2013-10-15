@@ -7,9 +7,20 @@ class Vistas extends CI_Controller {
 		ini_set('display_errors', 1);
 		$this->load->model('Param_model');
 		$this->load->model('userAdmin_model');
+		if(isset($_SESSION["ID_usr"]) and $_SESSION["ID_usr"]=="guest"){
+			$_SESSION["ID_usr"] = "aceptado";
+			redirect("vistas");
+		}
+		
+		if(!isset($_SESSION["ID_usr"]) or $_SESSION["ID_usr"]==""){
+			$_SESSION["ID_usr"] = "guest";
+			redirect("vistas");
+		}
 	}
 	
 	function index(){
+		unset($_SESSION["ID_usr"]);
+		
 		//Cargada de datos a la vista
 		$data = array();
 		//url_base en las vistas
@@ -19,7 +30,9 @@ class Vistas extends CI_Controller {
 		}else{
 			$data["errores"] = "";		
 		}
-
+		
+		//echo md5("eclipse80theeclipce");
+		//61ae1a3efb32af41d28decad9402f43f
 		$this->load->library('parser');
 		$this->parser->parse("cms/login.php",$data);
 	}
@@ -60,6 +73,7 @@ class Vistas extends CI_Controller {
 	}
 	
 	public function NilvController($pages="",$data_insert=""){
+		
 		//Declaracion inicial
 		$data = array();
 		
@@ -88,18 +102,20 @@ class Vistas extends CI_Controller {
 		
 		//cargando custom javascript
 		if(isset($data["custom_js"]) and $data["custom_js"]!=""){
-			foreach ($data["custom_js"] as $customJs)
-				$data["custom_js"] .= '<script src="'.$data["base_url"].'themes/cms/js/'.$customJs.'.js"></script>' . "/n/t";
+			foreach($data["custom_js"] as $customJs){
+				$data["customjs"] .= '<script src="'.$data["base_url"].'themes/cms/js/'.$customJs.'.js"></script>';
+			}
 		}else{
-			$data["custom_js"] = "";
+			$data["customjs"] = "";
 		}
 		
 		//cargando custom css		
 		if(isset($data["custom_css"]) and $data["custom_css"]!=""){
-			foreach ($data["custom_css"] as $custom_css)
-				$data["custom_css"] .= '<link href="'.$data["base_url"].'themes/cms/css/'.$custom_css.'.css" rel="stylesheet" type="text/css" />' . "/n/t";
+			foreach ($data["custom_css"] as $custom_css){
+				$data["customcss"] .= '<link href="'.$data["base_url"].'themes/cms/css/'.$custom_css.'.css" rel="stylesheet" type="text/css" />' . "/n/t";
+			}
 		}else{
-			$data["custom_css"] = "";
+			$data["customcss"] = "";
 		}
 		
 		//Vaciando datos
@@ -128,10 +144,10 @@ class Vistas extends CI_Controller {
 			$this->parser->parse("cms/404.php",$data);
 			$this->parser->parse("cms/footer.php",$data);
 		}
-		
 	}
 	
 	public function tablero(){
+		$data["customjs"] = array("tablero");
 		
 		//Hora del servidor
 		$horaservidor = localtime();
@@ -164,7 +180,7 @@ class Vistas extends CI_Controller {
 	}
 	
 	public function config(){
-		$data["custom_js"] = "config";
+		$data["customjs"] = array("config");
 		if(isset($_SESSION["error_config"]))
 			$data["error_config"] = $_SESSION["error_config"];
 		else
@@ -224,6 +240,7 @@ class Vistas extends CI_Controller {
 		$usuario_datos = $resultado->row();
 		
 		$resultado_priv = $this->userAdmin_model->Nilv_select_priv();
+		
 		$data["tabla_privilegios"] = "<table class='table table-bordered table-hover table-striped' id='tabla_privilegios' name='tabla_privilegios'>
 			<tr>
 				<td>Acci&oacute;n</td>
@@ -306,6 +323,17 @@ class Vistas extends CI_Controller {
 		$data["tabla_cat"] .= "</table>";
 		
 		$this->NilvController("componentes",$data);
+	}
+	
+	public function UserAdmins(){
+		$data["test"] = "";
+		
+		$query_usu = $this->userAdmin_model->Nilv_usuarios_select();
+		$data["listado_usuarios_admins"] = "";
+		foreach($query_usu->result_array() as $row){
+			$data["listado_usuarios_admins"] .= "<tr><td>".$row["id"]."</td><td>".$row["nombre"]."".$row["apellido"]."</td><td>".$row["email"]."</td><td>".$row["firma"]."</td><td>".$row["grupo"]."</td><td><a href='javascript:;'><img width='25' class='usuario_edit' src='".base_url()."themes/cms/img/editar.png'><a/></td></tr>";
+		}
+		$this->NilvController("useradmins",$data);
 	}
 	
 }

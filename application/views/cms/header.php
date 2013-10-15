@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{base_url}themes/cms/css/pages/base-admin-2-responsive.css">
 	<link href="{base_url}themes/cms/css/pages/dashboard.css" rel="stylesheet" />
 	<link href="{base_url}themes/cms/css/custom_base.css" rel="stylesheet" />
-	{custom_css}
+	{customcss}
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<!---<script src="{base_url}themes/cms/js/jquery-1.7.2.min.js"></script>
 	<script src="{base_url}themes/cms/js/jqueryui/js/jquery-1.9.1.js"></script>-->
@@ -25,7 +25,7 @@
 	<script src="{base_url}themes/cms/js/jqueryui/js/jquery-ui-1.10.3.custom.js"></script>
 	<script src="{base_url}themes/cms/js/validate/jquery.validate.js"></script>
 	<script src="{base_url}themes/cms/js/custom_base.js"></script>
-	{custom_js}
+	{customjs}
 	<script>
 	$(function() {
 		$( "#tabs" ).tabs();

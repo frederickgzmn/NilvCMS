@@ -275,22 +275,37 @@
 			}
 		}
 
+		//Metodo para seleccionar los privilegios de un grupo
+		function Nilv_rel_priv_grup_select($grupo){
+			if(isset($grupo) and $grupo!=""){
+				$this->db->where('id_grupo', $grupo);
+				return $this->db->get('rel_priv_grup');
+			}else{
+				return "false";
+			}
+		}
+		
 		//MEtodo para Agregar privilegios a los grupos
 		function Nilv_rel_priv_grup($grupo,$priv){
-			if(isset($priv) and isset($grupo)){
-				$this->db->delete('rel_priv_grup', array('id_grupo' => $grupo));
-				foreach($priv as $pri){
-					foreach($grupo as $grup){
-                    $data = array(
-                       'id_priv' => $pri,
-                       'id_grupo' => $grup
-                    );
-                
-                    $this->db->insert('rel_priv_grup', $data);
-					}
-				}
+			if(isset($priv) and $priv!="" and isset($grupo) and $grupo!=""){
+				//$this->db->delete('rel_priv_grup', array('id_grupo' => $grupo));
+				$data = array(
+				   'id_priv' => $priv,
+				   'id_grupo' => $grupo
+				);
+                $this->db->insert('rel_priv_grup', $data);
 				
 				return "insed";
+			}else{
+				return "false";
+			}
+		}
+		
+		//MEtodo para Agregar privilegios a los grupos
+		function Nilv_rel_priv_grup_delete($grupo,$priv){
+			if(isset($priv) and $priv!="" and isset($grupo) and $grupo!=""){
+				$this->db->delete('rel_priv_grup', array('id_grupo' => $grupo,'id_priv' => $priv));
+				return "deleted";
 			}else{
 				return "false";
 			}
@@ -327,6 +342,16 @@
 
 			$this->db->where('id', $codigo);
 			$this->db->update('user_admin', $data);
+		}
+		
+		
+		function Nilv_usuarios_select($usuario=""){
+			if($usuario==""){
+				return $query = $this->db->get("user_admin");
+			}else{
+				$this->db->where('id', $usuario);
+				return $query = $this->db->get("user_admin");
+			}
 		}
 		
 	}

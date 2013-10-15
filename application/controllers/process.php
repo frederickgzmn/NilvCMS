@@ -4,6 +4,7 @@ class Process extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
+		
 		ini_set('display_errors', 1);
 		
 		$this->load->model('userAdmin_model');
@@ -296,6 +297,37 @@ class Process extends CI_Controller {
 			echo '<div class="alert alert-danger">Problema al seleccionar grupo, actualize la pagina y intente nuevamente</div>';
 		}
 		
+	}
+	
+	public function Nilv_rel_priv_grup_select(){
+		if($this->input->post("codigo")){
+			$datos = $this->userAdmin_model->Nilv_rel_priv_grup_select($this->input->post("codigo"));
+			$retornando = "";
+			foreach($datos->result_array() as $rows){
+				$retornando .= "_".$rows["id_priv"];
+			}
+			
+			echo $retornando;
+		}else{
+			echo '<div class="alert alert-danger">Problema al seleccionar grupo, actualize la pagina y intente nuevamente</div>';
+		}
+		
+	}
+	
+	public function Nilv_rel_priv_grup(){
+		if($this->input->post("codigo") and $this->input->post("codigo_priv")){
+			echo $this->userAdmin_model->Nilv_rel_priv_grup($this->input->post("codigo"),$this->input->post("codigo_priv"));
+		}else{
+			echo "false";
+		}
+	}
+	
+	public function Nilv_rel_priv_grup_delete(){
+		if($this->input->post("codigo") and $this->input->post("codigo_priv")){
+			echo $this->userAdmin_model->Nilv_rel_priv_grup_delete($this->input->post("codigo"),$this->input->post("codigo_priv"));
+		}else{
+			echo "false";
+		}
 	}
 	
 }

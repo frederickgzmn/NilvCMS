@@ -6,23 +6,6 @@ $(document).ready(function() {
 });
 
 $(function () {
-	$.post("../process/Nilv_setting_jquery/1","setting=datos",function(data2){
-		var datos = data2.split(",");
-		var data = [datos[0]*1,datos[1]*1];
-		var series = 2;
-
-		$.plot($("#donut-chart"), data,
-		{
-			colors: ["#FF9900", "green", "#777", "#AAA"],
-				series: {
-					pie: { 
-						innerRadius: 0.5,
-						show: true
-					}
-				}
-		});
-	});
-	
 	//Agregando nota
 	$("#agregarnota").click(function(){
 		$.post("../process/Nilv_notas_person/1","notas="+$("#notas").val(),function(data){
@@ -51,6 +34,7 @@ $(function () {
 		});	
 	});
 	
+	/*
 	//Agregando nota
 	$("#privileg").change(function(){
 		$.post("../process/Nilv_cambio_clave/1","passwd="+$("#passwd").val()+"&&passwd2="+$("#passwd2").val(),function(data){
@@ -60,11 +44,12 @@ $(function () {
 				$(".alert").hide(1000);
 			}, 4000);
 		});	
-	});
+	});*/
 	
 	//limpiando todo para agregar un nuevo componente
 	$("#boton_nuevo_cat,#boton_nuevo_grup,#boton_nuevo_priv").click(function(){
 		$(".nuevo_todo").val("");
+		$("#privilegios").hide(500);
 	});
 	
 	//Agregando grupos
@@ -184,18 +169,61 @@ $(function () {
 		//Cargando los datos para ser editados
 		$("#codigo_grup").val($(this).attr("title"));
 		$("#grup_modific").val($(this).attr("id"));
+		$("#privilegios").hide(500);
+		$.post("../process/Nilv_rel_priv_grup_select","codigo="+$("#grup_modific").val(),function(data){
+			$(".privileg_grup").attr("checked",false);
+			$.each(data.split("_"),function(index,value){
+				if(value!=""){
+					$("#"+value).attr("checked",true);
+				}
+			});
+		$("#privilegios").show(1200);
+		});
+		
 	});
-		//Modificando categorias
+	//Modificando categorias
 	$(".cat_edit").click(function(){
 		//Cargando los datos para ser editados
 		$("#codigo_cat").val($(this).attr("title"));
 		$("#cat_modific").val($(this).attr("id"));
 	});
-		//Modificando Privilegios
+	
+	//Modificando Privilegios
 	$(".priv_edit").click(function(){
 		//Cargando los datos para ser editados
 		$("#codigo_priv").val($(this).attr("title"));
 		$("#priv_modific").val($(this).attr("id"));
 	});
 	
+	//Modificando categorias
+	$(".privileg_grup").click(function(){
+		if($(this).is(":checked")){
+			//Agregando privilegio a grupo
+			$.post("../process/Nilv_rel_priv_grup","codigo="+$("#grup_modific").val()+"&&codigo_priv="+$(this).attr("id"),function(data){
+				if(data=="insed"){
+					$("#alertas_priv").html('<div class="alert alert-success">Privilegio Asignado Correctamente</div>');
+					setTimeout(function () {
+						$(".alert").hide(1000);
+					}, 4000);
+				}
+			});
+		}else{
+			//Eliminar privilegio a grupo
+			$.post("../process/Nilv_rel_priv_grup_delete","codigo="+$("#grup_modific").val()+"&&codigo_priv="+$(this).attr("id"),function(data){
+				if(data=="deleted"){
+					$("#alertas_priv").html('<div class="alert alert-success">Privilegio Eliminado del grupo</div>');
+				setTimeout(function () {
+					$(".alert").hide(1000);
+				}, 4000);
+				}
+			});
+		}
+	});
+	
+	//Agregar usuarios vista
+	$("#boton_agregar_user").click(function(){
+		$("#user_registro_actualiz").hide(500);
+		$("#codigo_priv").attr("disabled","disabled");
+		$("#user_registro_actualiz").show(1200);
+	});
 });

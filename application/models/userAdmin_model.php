@@ -13,54 +13,73 @@
     		    echo "fatal error";
 			}
         }
-		
+		//Metodo para que los administradores modifiquen sus propios perfiles
+		function Nilv_Actualizacion_user($grupo,$nombre,$apellido,$email,$firma,$usuario=""){
+				$consulta = $this->db->get_where('user_admin', array("id" => $usuario));
+				if($consulta->num_rows() > 0){
+						$data = array(
+						   'nombre' => $nombre,
+						   'apellido' => $apellido,
+						   'email' => $email,
+						   'firma' => $this->input->post("firma"),
+						   'grupo' => $this->input->post("grupo")
+						);
+
+						//Expecificar que el usuario sea administrador
+						if($usuario==""){
+								$usuario = $_SESSION["ID_usr"];
+						}else{
+								$data["id"] = $usuario;
+						}
+						
+						$this->db->where('id', $usuario);
+						$this->db->update('user_admin', $data);
+
+						return true;
+				}else{
+						return false;
+				}
+		}
+				
 		//Metodo para modificar los user_admin
-		function Nilv_modificar_usuario($grupo,$nombre,$apellido,$email,$firma,$usuario=""){
+		function Nilv_modificar_usuario($usuario,$nombre,$apellido,$email,$grupo){
 			$consulta = $this->db->get_where('user_admin', array("id" => $usuario));
 			if($consulta->num_rows() > 0){
 				$data = array(
 				   'nombre' => $nombre,
 				   'apellido' => $apellido,
 				   'email' => $email,
-				   'firma' => $this->input->post("firma"),
 				   'grupo' => $this->input->post("grupo")
 				);
-
-				//Expecificar que el usuario sea administrador
-				if($usuario==""){
-					$usuario = $_SESSION["ID_usr"];
-				}else{
-					$data["id"] = $usuario;
-				}
-				
 				$this->db->where('id', $usuario);
 				$this->db->update('user_admin', $data);
 
 				return true;
 			}else{
+				echo $consulta->num_rows();
 				return false;
 			}
 		}
 		
 		//Metodo para registrar los user_admin
-		function Nilv_insertar_usuario($nombre,$apellido,$email,$usuario,$passwd){
+		function Nilv_insertar_usuario($usuario,$nombre,$apellido,$email,$grupo){
 			$consulta = $this->db->get_where('user_admin', array("id" => $usuario));
             
 			if($consulta->num_rows() > 0){
 				return false;
 			}else{
 				$data = array(
-                   'id' => $usuario ,
-                   'nombre' => $nombre ,
+                   'id' => $usuario,
+                   'nombre' => $nombre,
                    'apellido' => $apellido,
                    'email' => $email,
-                   'passwd' => md5($passwd.$usuario)
+                   'grupo' => $grupo,
+                   'passwd' => md5("adminnilv".$usuario)
                 );
                 
                 $this->db->insert('user_admin', $data);
 				return true;
 			}
-
 		}
 		
 		//Metodo de login / conexion para los user_admin

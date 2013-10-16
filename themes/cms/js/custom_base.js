@@ -220,10 +220,5 @@ $(function () {
 		}
 	});
 	
-	//Agregar usuarios vista
-	$("#boton_agregar_user").click(function(){
-		$("#user_registro_actualiz").hide(500);
-		$("#codigo_priv").attr("disabled","disabled");
-		$("#user_registro_actualiz").show(1200);
-	});
+	
 });

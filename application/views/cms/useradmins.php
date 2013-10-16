@@ -51,34 +51,29 @@
 										  </div>
 										</div>
 										<div class="control-group">
-										  <label for="name" class="control-label titulo">Firma</label>
-										  <div class="tituloslog">
-											Firma del usuario
-										  </div>
-										  <div class="controls">
-											<input class="nuevo_todo" type="text" id="firma_user" name="firma_user" value="" class="input-large preg_conf" >
-										  </div>
-										</div>
-										<div class="control-group">
 										  <label for="name" class="control-label titulo">Grupo</label>
 										  <div class="tituloslog">
 											Grupo del usuario
 										  </div>
 										  <div class="controls">
-											<input class="nuevo_todo" type="text" id="grupo_user" name="codigo_user" value="" class="input-large preg_conf" >
+											<select name="grupo_user" id="grupo_user">
+												{list_grupos}
+											</select>
 										  </div>
 										</div>
-										<div id="alertas_grupo" name="alertas_grupo"></div>
 										<input class="nuevo_todo" value="" type="hidden" id="user_modific" name="user_modific"/>
 										<div class="form-actions">
-											<button name="boton_agregar_user" id="boton_agregar_user" class="btn btn-info" type="button">Agregar</button>
-											<button name="boton_modific_user" id="boton_modific_user" class="btn btn-info" type="button">Modificar</button>
-											<button name="boton_nuevo_user" id="boton_nuevo_user" class="btn btn-info" type="button">Nuevo</button>
+											<button style="display: none;" name="boton_agregar_user" id="boton_agregar_user" class="btn btn-success" type="button">Completar Registro</button>
+											<button style="display: none;" name="boton_modific_user" id="boton_modific_user" class="btn btn-info" type="button">Modificar</button>
+											<button name="boton_limpiar_user" id="boton_limpiar_user" class="btn btn-inverse" type="button">Limpiar</button>
 										</div>
+								</fieldset>
+								<fieldset style="display: none;" id="user_alert_ver" name="user_alert_ver">
+									<div id="alertas_user_insert_act" name="alertas_user_insert_act"></div>
 								</fieldset>
 								
 								<fieldset id="user_autentificacion">
-										<button name="boton_agregar_user" id="boton_agregar_user" class="btn btn-info" type="button">Agregar Nuevo</button>
+										<button name="boton_agregar_user_vista" id="boton_agregar_user_vista" class="btn btn-danger" type="button">Agregar Nuevo</button>
 										<legend>Lista de usuarios</legend>
 										<div class="control-group">
 										<table class='table table-bordered table-hover table-striped' id='tabla_privilegios' name='tabla_privilegios'>

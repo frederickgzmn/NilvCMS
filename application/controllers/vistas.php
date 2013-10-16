@@ -102,6 +102,7 @@ class Vistas extends CI_Controller {
 		
 		//cargando custom javascript
 		if(isset($data["custom_js"]) and $data["custom_js"]!=""){
+			$data["customjs"] = "";
 			foreach($data["custom_js"] as $customJs){
 				$data["customjs"] .= '<script src="'.$data["base_url"].'themes/cms/js/'.$customJs.'.js"></script>';
 			}
@@ -111,6 +112,7 @@ class Vistas extends CI_Controller {
 		
 		//cargando custom css		
 		if(isset($data["custom_css"]) and $data["custom_css"]!=""){
+			$data["customcss"] = "";
 			foreach ($data["custom_css"] as $custom_css){
 				$data["customcss"] .= '<link href="'.$data["base_url"].'themes/cms/css/'.$custom_css.'.css" rel="stylesheet" type="text/css" />' . "/n/t";
 			}
@@ -263,10 +265,16 @@ class Vistas extends CI_Controller {
 		$data["apellido"] = $usuario_datos->apellido;
 		$data["email"] = $usuario_datos->email;
 		$data["firma"] = $usuario_datos->firma;
-		if($usuario_datos->grupo=="S"){
-			$data["grupo"] = "selected='selected'";
-		}else{
-			$data["grupo"] = "";
+		
+		$query_grupos = $this->userAdmin_model->Nilv_select_grup();
+		$data["list_grupos"] = "";
+		foreach($query_grupos->result_array() as $row2){
+			if($usuario_datos->grupo==$row2["id"]){
+				$selected = "selected='selected'";
+			}else{
+				$selected = "";
+			}
+			$data["list_grupos"] .= "<option ".$selected." value='".$row2["id"]."'>".$row2["nombre"]."</option>";
 		}
 		
 		$this->NilvController("perfil",$data);
@@ -326,14 +334,21 @@ class Vistas extends CI_Controller {
 	}
 	
 	public function UserAdmins(){
-		$data["test"] = "";
+		$data["custom_js"] = array("useradmins");
+		$data["list_grupos"] = "";
 		
 		$query_usu = $this->userAdmin_model->Nilv_usuarios_select();
 		$data["listado_usuarios_admins"] = "";
 		foreach($query_usu->result_array() as $row){
-			$data["listado_usuarios_admins"] .= "<tr><td>".$row["id"]."</td><td>".$row["nombre"]."".$row["apellido"]."</td><td>".$row["email"]."</td><td>".$row["firma"]."</td><td>".$row["grupo"]."</td><td><a href='javascript:;'><img width='25' class='usuario_edit' src='".base_url()."themes/cms/img/editar.png'><a/></td></tr>";
+			$data["listado_usuarios_admins"] .= "<tr><td>".$row["id"]."</td><td>".$row["nombre"]."".$row["apellido"]."</td><td>".$row["email"]."</td><td>".$row["firma"]."</td><td>".$row["grupo"]."</td><td><a href='javascript:;'><img width='25' id='".$row["id"]."' name='".$row["id"]."' class='usuario_edit' src='".base_url()."themes/cms/img/editar.png'><a/></td></tr>";
+		}
+		
+		$query_grupos = $this->userAdmin_model->Nilv_select_grup();
+		foreach($query_grupos->result_array() as $row2){
+			$data["list_grupos"] .= "<option value='".$row2["id"]."'>".$row2["nombre"]."</option>";
 		}
 		$this->NilvController("useradmins",$data);
 	}
+	
 	
 }

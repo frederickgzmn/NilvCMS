@@ -58,10 +58,10 @@
 											Grupo del usuario, este sera el rol que ejercera el mismo en la app.
 										  </div>
 										  <div class="controls">
-											<select name="grupo" id="grupo" class="preg_conf_2">
-												<option value="A">Administrador</option>
-												<option {grupo} value="S">Super User</option>
+											<select name="grupo" id="grupo">
+												{list_grupos}
 											</select>
+											
 										  </div>
 										</div>
 										

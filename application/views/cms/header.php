@@ -115,9 +115,9 @@
 				</li>
 				
 				<li>
-					<a href="{base_url}vistas/usuarios">
+					<a href="{base_url}vistas/useradmins">
 						<i class="shortcut-icon icon-user"></i>
-						<span>Config Admin</span>
+						<span>Users Admin</span>
 					</a>
 				</li>
 

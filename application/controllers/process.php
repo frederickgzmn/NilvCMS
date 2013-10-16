@@ -163,7 +163,8 @@ class Process extends CI_Controller {
 			}else{
 				$firma = "";
 			}
-			$resultado = $this->userAdmin_model->Nilv_modificar_usuario($this->input->post("grupo"),$this->input->post("nombre"),$this->input->post("apellido"),$this->input->post("email"),$firma,$_SESSION["ID_usr"]);
+
+			$resultado = $this->userAdmin_model->Nilv_Actualizacion_user($this->input->post("grupo"),$this->input->post("nombre"),$this->input->post("apellido"),$this->input->post("email"),$firma,$_SESSION["ID_usr"]);
 			
 			
 			if($resultado=="true"){
@@ -327,6 +328,42 @@ class Process extends CI_Controller {
 			echo $this->userAdmin_model->Nilv_rel_priv_grup_delete($this->input->post("codigo"),$this->input->post("codigo_priv"));
 		}else{
 			echo "false";
+		}
+	}
+	
+	
+	public function Nilv_usuarios_select(){
+		if($this->input->post("codigo")){
+			$datos =  $this->userAdmin_model->Nilv_usuarios_select($this->input->post("codigo"));
+			$row = $datos->row_array();
+			
+			echo $row["id"]."]".$row["nombre"]."]".$row["apellido"]."]".$row["email"]."]".$row["firma"]."]".$row["grupo"];
+		}else{
+			echo "false";
+		}
+	}
+	
+	public function Nilv_insertar_usuario(){
+		if($this->input->post("codigo")){
+			if($this->input->post("codigo") and $this->input->post("nombre") and $this->input->post("apellido") and $this->input->post("email") and $this->input->post("grupo") and $this->input->post("formulario_actu_reg")=="nuevo_form"){
+				$datos =  $this->userAdmin_model->Nilv_insertar_usuario($this->input->post("codigo"),$this->input->post("nombre"),$this->input->post("apellido"),$this->input->post("email"),$this->input->post("grupo"));
+				if($datos){
+					echo '<div class="alert alert-success">Registrado Correctamente</div>';
+				}else{
+					echo '<div class="alert alert-danger">Existe un usuario con ese Codigo de usuario, o en su defecto existe un error.</div>';
+				}
+			}elseif($this->input->post("codigo") and $this->input->post("nombre") and $this->input->post("apellido") and $this->input->post("email") and $this->input->post("grupo") and $this->input->post("formulario_actu_reg")=="actual_form"){
+				$datos2 =  $this->userAdmin_model->Nilv_modificar_usuario($this->input->post("codigo"),$this->input->post("nombre"),$this->input->post("apellido"),$this->input->post("email"),$this->input->post("grupo"));
+				if($datos2){
+					echo '<div class="alert alert-success">Usuario Actualizado Correctamente</div>';
+				}elseif($datos2==false){
+					echo '<div class="alert alert-danger">El usuario no existe, o en su defecto existe un error.</div>';
+				}
+			}else{
+				echo '<div class="alert alert-danger">Existio un problema en el registro, o uno de los campos obligatorios esta vacio.</div>';
+			}
+		}else{
+			echo '<div class="alert alert-danger">Campo(s) vacio(s)</div>';		
 		}
 	}
 	

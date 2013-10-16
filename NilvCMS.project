@@ -94,6 +94,7 @@
                     <File name="application\views\cms\test.html" />
                     <File name="application\views\cms\perfil.php" />
                     <File name="application\views\cms\componentes.php" />
+                    <File name="application\views\cms\useradmins.php" />
                 </Folder>
                 <File name="application\views\index.html" />
             </Folder>
@@ -642,6 +643,7 @@
                     <File name="themes\cms\js\jquery.flot.pie.js" />
                     <File name="themes\cms\js\jquery.flot.resize.js" />
                     <File name="themes\cms\js\signin.js" />
+                    <File name="themes\cms\js\useradmins.js" />
                 </Folder>
             </Folder>
         </Folder>

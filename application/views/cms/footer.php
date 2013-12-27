@@ -12,9 +12,6 @@
     				
     				<ul>
     					<li><a href="javascript:;">About Us</a></li>
-    					<li><a href="javascript:;">Twitter</a></li>
-    					<li><a href="javascript:;">Facebook</a></li>
-    					<li><a href="javascript:;">Google+</a></li>
     				</ul>
     				
     			</div> <!-- /span3 -->
@@ -25,9 +22,6 @@
     				
     				<ul>
     					<li><a href="javascript:;">Frequently Asked Questions</a></li>
-    					<li><a href="javascript:;">Ask a Question</a></li>
-    					<li><a href="javascript:;">Video Tutorial</a></li>
-    					<li><a href="javascript:;">Feedback</a></li>
     				</ul>
     				
     			</div> <!-- /span3 -->
@@ -38,9 +32,6 @@
     				
     				<ul>
     					<li><a href="javascript:;">License</a></li>
-    					<li><a href="javascript:;">Terms of Use</a></li>
-    					<li><a href="javascript:;">Privacy Policy</a></li>
-    					<li><a href="javascript:;">Security</a></li>
     				</ul>
     				
     			</div> <!-- /span3 -->
@@ -51,9 +42,6 @@
     				
     				<ul>
     					<li><a href="javascript:;">Consectetur adipisicing</a></li>
-    					<li><a href="javascript:;">Eiusmod tempor </a></li>
-    					<li><a href="javascript:;">Fugiat nulla pariatur</a></li>
-    					<li><a href="javascript:;">Officia deserunt</a></li>
     				</ul>
     				
     			</div> <!-- /span3 -->
@@ -78,7 +66,7 @@
 			<div class="row">
 				
     			<div class="span12">
-    				&copy; 2012 <a href="http://bootstrapadmin.com">Base Admin</a>.
+    				&copy; 2013-2014 <a href="https://www.nilbug.com">Nilbug Developer</a>.
     			</div> <!-- /span12 -->
     			
     		</div> <!-- /row -->

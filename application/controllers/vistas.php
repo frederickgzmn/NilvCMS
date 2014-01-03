@@ -16,6 +16,13 @@ class Vistas extends CI_Controller {
 			$_SESSION["ID_usr"] = "guest";
 			redirect("vistas");
 		}
+		
+		$vista_user2 = $this->userAdmin_model->Nilv_vista_usuario($_SESSION["ID_usr"]);
+		
+		$this->load->library('NilvCMS/Nilv_Controller_class');
+		$nilvcontroller = new Nilv_Controller_class($vista_user2);
+		//$this->NilvController();
+		
 	}
 	
 	function index(){
@@ -72,7 +79,7 @@ class Vistas extends CI_Controller {
 		$this->parser->parse("cms/login.php",$data);
 	}
 	
-	public function NilvController($pages="",$data_insert=""){
+	public function NilvController($pages="",$data_insert="",$schem="cms"){
 		
 		//Declaracion inicial
 		$data = array();
@@ -104,7 +111,7 @@ class Vistas extends CI_Controller {
 		if(isset($data["custom_js"]) and $data["custom_js"]!=""){
 			$data["customjs"] = "";
 			foreach($data["custom_js"] as $customJs){
-				$data["customjs"] .= '<script src="'.$data["base_url"].'themes/cms/js/'.$customJs.'.js"></script>';
+				$data["customjs"] .= '<script src="'.$data["base_url"].'themes/'.$schem.'/js/'.$customJs.'.js"></script>';
 			}
 		}else{
 			$data["customjs"] = "";
@@ -114,7 +121,7 @@ class Vistas extends CI_Controller {
 		if(isset($data["custom_css"]) and $data["custom_css"]!=""){
 			$data["customcss"] = "";
 			foreach ($data["custom_css"] as $custom_css){
-				$data["customcss"] .= '<link href="'.$data["base_url"].'themes/cms/css/'.$custom_css.'.css" rel="stylesheet" type="text/css" />' . "/n/t";
+				$data["customcss"] .= '<link href="'.$data["base_url"].'themes/'.$schem.'/css/'.$custom_css.'.css" rel="stylesheet" type="text/css" />' . "/n/t";
 			}
 		}else{
 			$data["customcss"] = "";
@@ -134,17 +141,18 @@ class Vistas extends CI_Controller {
 		}
 
 		//Comprobacion de que la vista exista
-		$dir = scandir("application/views/cms/");
+		$dir = scandir("application/views/".$schem."/");
+		
 		if(in_array($pages.".php",$dir)){
 			//Cargada de datos a la vista
-			$this->parser->parse("cms/header.php",$data);
-			$this->parser->parse("cms/".$pages.".php",$data);
-			$this->parser->parse("cms/footer.php",$data);			
+			$this->parser->parse($schem."/header.php",$data);
+			$this->parser->parse($schem."/".$pages.".php",$data);
+			$this->parser->parse($schem."/footer.php",$data);			
 		}else{
 			//si la vista no existe mostramos un 404
-			$this->parser->parse("cms/header.php",$data);
-			$this->parser->parse("cms/404.php",$data);
-			$this->parser->parse("cms/footer.php",$data);
+			$this->parser->parse($schem."/header.php",$data);
+			$this->parser->parse($schem."/404.php",$data);
+			$this->parser->parse($schem."/footer.php",$data);
 		}
 	}
 	

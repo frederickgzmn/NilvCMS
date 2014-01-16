@@ -10,11 +10,8 @@ class Web extends CI_Controller{
 	}
 	
 	function index(){
-		//print_r(scandir("application/controllers/vistas.php"));
-		$this->load->library("application/controllers/vistas");
-		//$this->vistas->NilvController("");
-		
-		//$this->NilvController("");
+		$data = array();
+		$this->nilv_controller_class->NilvController("contenido",$data,"web");
 	}
 	
 }

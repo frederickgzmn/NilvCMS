@@ -7,6 +7,7 @@ class Vistas extends CI_Controller {
 		ini_set('display_errors', 1);
 		$this->load->model('Param_model');
 		$this->load->model('userAdmin_model');
+		
 		if(isset($_SESSION["ID_usr"]) and $_SESSION["ID_usr"]=="guest"){
 			$_SESSION["ID_usr"] = "aceptado";
 			redirect("vistas");
@@ -16,13 +17,7 @@ class Vistas extends CI_Controller {
 			$_SESSION["ID_usr"] = "guest";
 			redirect("vistas");
 		}
-		
-		$vista_user2 = $this->userAdmin_model->Nilv_vista_usuario($_SESSION["ID_usr"]);
-		
-		$this->load->library('NilvCMS/Nilv_Controller_class');
-		$nilvcontroller = new Nilv_Controller_class($vista_user2);
-		//$this->NilvController();
-		
+
 	}
 	
 	function index(){
@@ -79,83 +74,6 @@ class Vistas extends CI_Controller {
 		$this->parser->parse("cms/login.php",$data);
 	}
 	
-	public function NilvController($pages="",$data_insert="",$schem="cms"){
-		
-		//Declaracion inicial
-		$data = array();
-		
-		//llamando modelo
-		$this->load->library('parser');
-		$vista_user = $this->userAdmin_model->Nilv_vista_usuario($_SESSION["ID_usr"]);
-
-		//Datos a cargar a la vista
-		$n=0;
-		foreach($datodb = $vista_user->result_array() as $rows){
-			$data["usuario"] = $datodb[$n]["id"];
-			$data["nombre"] = $datodb[$n]["nombre"];
-			$data["apellidos"] = $datodb[$n]["apellido"];
-			$data["email"] = $datodb[$n]["email"];
-			$n++;
-		}
-		
-		//url_base en las vistas
-		$data["base_url"] = base_url();
-		
-		//Uniendo el arreglo enviado con el arreglo master
-		if($data_insert!="" and is_array($data_insert)){
-			//Union de array
-			$data = array_merge($data, $data_insert);		
-		}
-		
-		//cargando custom javascript
-		if(isset($data["custom_js"]) and $data["custom_js"]!=""){
-			$data["customjs"] = "";
-			foreach($data["custom_js"] as $customJs){
-				$data["customjs"] .= '<script src="'.$data["base_url"].'themes/'.$schem.'/js/'.$customJs.'.js"></script>';
-			}
-		}else{
-			$data["customjs"] = "";
-		}
-		
-		//cargando custom css		
-		if(isset($data["custom_css"]) and $data["custom_css"]!=""){
-			$data["customcss"] = "";
-			foreach ($data["custom_css"] as $custom_css){
-				$data["customcss"] .= '<link href="'.$data["base_url"].'themes/'.$schem.'/css/'.$custom_css.'.css" rel="stylesheet" type="text/css" />' . "/n/t";
-			}
-		}else{
-			$data["customcss"] = "";
-		}
-		
-		//Vaciando datos
-		if(empty($data) or $_SESSION["ID_usr"]==""){
-			$data["usuario"] = "";
-			$data["nombre"] = "";
-			$data["apellidos"] = "";
-			$data["email"] = "";
-		}
-		
-		//Envio del usuario al tablero
-		if($pages=="" or $pages == "header" or $pages == "footer"){
-			$pages = "tablero";
-		}
-
-		//Comprobacion de que la vista exista
-		$dir = scandir("application/views/".$schem."/");
-		
-		if(in_array($pages.".php",$dir)){
-			//Cargada de datos a la vista
-			$this->parser->parse($schem."/header.php",$data);
-			$this->parser->parse($schem."/".$pages.".php",$data);
-			$this->parser->parse($schem."/footer.php",$data);			
-		}else{
-			//si la vista no existe mostramos un 404
-			$this->parser->parse($schem."/header.php",$data);
-			$this->parser->parse($schem."/404.php",$data);
-			$this->parser->parse($schem."/footer.php",$data);
-		}
-	}
-	
 	public function tablero(){
 		$data["customjs"] = array("tablero");
 		
@@ -186,7 +104,7 @@ class Vistas extends CI_Controller {
 		   $row = $resultado2->row_array();
 		   $data["notaprincipal"] = $row['nota'];
 		}
-		$this->NilvController("",$data);
+		$this->nilv_controller_class->NilvController("",$data);
 	}
 	
 	public function config(){
@@ -240,7 +158,7 @@ class Vistas extends CI_Controller {
 			$data["statregister"] = "";
 		}
 		
-		$this->NilvController("config",$data);
+		$this->nilv_controller_class->NilvController("config",$data);
 		$_SESSION["error_config"]="";
 	}
 	//Vista de la configuracion de los perfiles
@@ -285,7 +203,7 @@ class Vistas extends CI_Controller {
 			$data["list_grupos"] .= "<option ".$selected." value='".$row2["id"]."'>".$row2["nombre"]."</option>";
 		}
 		
-		$this->NilvController("perfil",$data);
+		$this->nilv_controller_class->NilvController("perfil",$data);
 		$_SESSION["error_config_user"] = "";
 	}
 	
@@ -338,7 +256,7 @@ class Vistas extends CI_Controller {
 		}
 		$data["tabla_cat"] .= "</table>";
 		
-		$this->NilvController("componentes",$data);
+		$this->nilv_controller_class->NilvController("componentes",$data);
 	}
 	
 	public function UserAdmins(){
@@ -355,8 +273,6 @@ class Vistas extends CI_Controller {
 		foreach($query_grupos->result_array() as $row2){
 			$data["list_grupos"] .= "<option value='".$row2["id"]."'>".$row2["nombre"]."</option>";
 		}
-		$this->NilvController("useradmins",$data);
+		$this->nilv_controller_class->NilvController("useradmins",$data);
 	}
-	
-	
 }

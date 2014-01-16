@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = '198.100.174.5';
 $db['default']['username'] = 'nilvcms';
-$db['default']['password'] = '123456';
+$db['default']['password'] = '8295905152';
 $db['default']['database'] = 'nb_pro_cms';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
